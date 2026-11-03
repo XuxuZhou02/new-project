@@ -488,6 +488,32 @@ td q { font-style: italic; }
 .disclaimer {
   font-size: 0.9rem; color: var(--muted); padding: 12px 14px; border-radius: 8px; border: 1px dashed var(--line); max-width: var(--read);
 }
+
+[id] { scroll-margin-top: 96px; }
+.toc { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding-block: 28px 8px; }
+.toc > span { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-right: 4px; }
+.toc a { font-size: 0.88rem; text-decoration: none; padding: 4px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); }
+.toc a:hover { border-color: var(--accent); color: var(--accent); }
+.decisions { display: grid; gap: 12px; grid-template-columns: 1fr; }
+@media (min-width: 900px) { .decisions { grid-template-columns: repeat(3, 1fr); } }
+.decisions > article { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; display: grid; gap: 12px; align-content: start; min-width: 0; }
+.decisions h3 { font-size: var(--step-1); }
+.tradeoff { margin: 0; display: grid; gap: 10px; font-size: 0.95rem; }
+.tradeoff dt { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.tradeoff dd { margin: 2px 0 0; }
+.storyboard li.final { border-color: var(--good); box-shadow: inset 0 0 0 1px var(--good); }
+.storyboard li.final .frame-no { color: var(--good); font-weight: 600; }
+.kb { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(18px, 3vw, 32px); max-width: 760px; display: grid; gap: 12px; }
+.kb h3 { font-size: var(--step-2); }
+.kb h4 { font-family: var(--font-display); font-size: var(--step-1); margin: 8px 0 0; }
+.kb-crumb { font-size: 0.85rem; color: var(--muted); }
+.kb-answer { font-size: 1.08rem; padding: 12px 14px; background: var(--accent-soft); border-radius: 8px; }
+.kb ol, .kb ul { display: grid; gap: 6px; }
+.kb-foot { font-size: 0.85rem; color: var(--muted); border-top: 1px solid var(--line); padding-top: 12px; }
+.yes { color: var(--good); font-weight: 600; }
+.later { color: var(--muted); }
+td a { white-space: nowrap; }
+.msg.fallback { max-width: 520px; }
 </style>
 </head>
 <body>
@@ -574,6 +600,32 @@ td q { font-style: italic; }
             <span class="more">Read case study →</span>
           </div>
         </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="skills" aria-labelledby="skills-title">
+    <div class="frame">
+      <div class="section-head">
+        <span class="key">portfolio.home.skills.title</span>
+        <h2 id="skills-title">Skills at a glance</h2>
+        <p class="note">Where to find evidence of each skill in the case studies.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">Skill</th><th scope="col">Evidence</th><th scope="col">Jump to</th></tr></thead>
+          <tbody>
+            <tr><td>UX writing</td><td>Six error and notification rewrites, a four-draft iteration, an error message component spec</td><td><a href="#cs2-rewrites">Rewrites</a></td></tr>
+            <tr><td>Information architecture</td><td>Four-layer content model, content type specs, faceted taxonomy, string key convention</td><td><a href="#cs1-model">Content model</a></td></tr>
+            <tr><td>Learning experience design</td><td>Learning objectives, learning path, lesson outlines, video script, knowledge check</td><td><a href="#cs3-path">Learning path</a></td></tr>
+            <tr><td>Knowledge base writing</td><td>A driver help center article, and help article variants in the live demo</td><td><a href="#cs3-kb">Help article</a></td></tr>
+            <tr><td>Systems and workflow</td><td>Publishing workflow redesign, governance rules, phased rollout plan</td><td><a href="#cs1-flow">Workflow</a></td></tr>
+            <tr><td>Voice, tone, and style</td><td>Tone scale tied to stakes, word list with reasons</td><td><a href="#cs2-style">Word list</a></td></tr>
+            <tr><td>Accessibility and localization</td><td>Screen reader labels, plain language, Canadian French expansion, captions</td><td><a href="#cs2-a11y">Accessibility</a></td></tr>
+            <tr><td>Strategy and metrics</td><td>Success metrics for each project, Kirkpatrick evaluation plan, testing plan</td><td><a href="#cs3-measure">Evaluation</a></td></tr>
+            <tr><td>Cross-functional collaboration</td><td>Partner map, engineering handoff with error mapping</td><td><a href="#cs2-handoff">Handoff</a></td></tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </section>
@@ -668,6 +720,23 @@ td q { font-style: italic; }
       <div><h2>How I'd measure it</h2><p>Time from a policy change to every surface updated, and support contacts about that topic in the weeks after.</p></div>
     </div>
 
+    <nav class="toc" aria-label="On this page">
+      <span>On this page</span>
+      <a href="#cs1-process">Process</a><a href="#cs1-problem">Problem</a><a href="#cs1-model">Content model</a><a href="#cs1-spec">Specs</a><a href="#cs1-try">Live demo</a><a href="#cs1-keys">Naming</a><a href="#cs1-decisions">Decisions</a><a href="#cs1-flow">Workflow</a><a href="#cs1-rollout">Rollout</a><a href="#cs1-measure">Metrics</a>
+    </nav>
+
+    <section class="chapter" aria-labelledby="cs1-process">
+      <header><span class="key">case.content_system.process</span><h2 id="cs1-process">Process</h2></header>
+      <ol class="framework">
+        <li><strong>Audit</strong><span>Traced one concept, the cancellation fee, through six surfaces. Logged every name, rule, and owner I could find.</span></li>
+        <li><strong>Define</strong><span>Wrote a canonical definition and a list of names to avoid, so the concept has exactly one name.</span></li>
+        <li><strong>Model</strong><span>Separated facts from copy, and copy from placement. Specified the fields for each content type.</span></li>
+        <li><strong>Structure</strong><span>Designed facets so content can be found from more than one path, and a key convention for the string library.</span></li>
+        <li><strong>Operationalize</strong><span>Redesigned the publishing workflow and wrote governance rules so the model stays accurate over time.</span></li>
+        <li><strong>Plan rollout</strong><span>Scoped a pilot, mapped partners and metrics, and listed the risks with how I'd reduce them.</span></li>
+      </ol>
+    </section>
+
     <section class="chapter" aria-labelledby="cs1-problem">
       <header><span class="key">case.content_system.problem</span><h2 id="cs1-problem">A single policy lives in many places</h2></header>
       <div class="prose">
@@ -721,6 +790,43 @@ td q { font-style: italic; }
           <p>Where and when a variant appears: a screen, a trigger, an article ID.</p>
           <ul><li>screen_id</li><li>trigger_event</li><li>locale</li></ul>
         </div>
+      </div>
+    </section>
+
+    <section class="chapter" aria-labelledby="cs1-spec">
+      <header><span class="key">case.content_system.spec</span><h2 id="cs1-spec">Content type specs</h2></header>
+      <div class="prose"><p>A model is only useful once it's specific enough to build. These are the fields I'd hand to an engineer or set up as content types in a CMS like Contentful.</p></div>
+      <h3>Concept</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Rules</th><th scope="col">Example</th></tr></thead>
+          <tbody>
+            <tr><td><code>concept_id</code></td><td>Text</td><td>Yes</td><td>snake_case, unique, never renamed</td><td><code>cancel_fee</code></td></tr>
+            <tr><td><code>canonical_name</code></td><td>Text</td><td>Yes</td><td>Sentence case. The only name used in rider and driver copy.</td><td>Cancellation fee</td></tr>
+            <tr><td><code>definition</code></td><td>Long text</td><td>Yes</td><td>One or two plain-language sentences. No internal jargon.</td><td>A fee charged when a rider cancels after…</td></tr>
+            <tr><td><code>avoid_terms</code></td><td>List</td><td>No</td><td>Names writers shouldn't use. Powers automated checks.</td><td>late cancel fee, penalty</td></tr>
+            <tr><td><code>facts</code></td><td>References</td><td>No</td><td>Linked to policy or config. Read-only for writers.</td><td><code>{fee_amount}</code>, <code>{grace_period}</code></td></tr>
+            <tr><td><code>audience</code>, <code>stage</code></td><td>Facets</td><td>Yes</td><td>At least one value each.</td><td>Rider, Driver · Pickup</td></tr>
+            <tr><td><code>policy_owner</code></td><td>Team</td><td>Yes</td><td>Approves changes to facts and the definition.</td><td>Rider payments policy</td></tr>
+            <tr><td><code>review_by</code></td><td>Date</td><td>Yes</td><td>No more than 6 months out. Flagged when overdue.</td><td>2027-03-01</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>Variant</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Rules</th><th scope="col">Example</th></tr></thead>
+          <tbody>
+            <tr><td><code>variant_key</code></td><td>Text</td><td>Yes</td><td>Follows the naming convention below.</td><td><code>rider.after_trip.cancel_fee.push</code></td></tr>
+            <tr><td><code>surface</code></td><td>Enum</td><td>Yes</td><td>ui, push, email, receipt, help, learning, macro</td><td>push</td></tr>
+            <tr><td><code>concept</code></td><td>Reference</td><td>Yes</td><td>Exactly one primary concept.</td><td><code>cancel_fee</code></td></tr>
+            <tr><td><code>title</code></td><td>Text</td><td>By surface</td><td>Limit set by surface. Push: 40 characters.</td><td>Cancellation fee: {fee_amount}</td></tr>
+            <tr><td><code>body</code></td><td>Text</td><td>Yes</td><td>Push: 90. In-app sheet: 140. May include facts.</td><td>You cancelled more than…</td></tr>
+            <tr><td><code>a11y_label</code></td><td>Text</td><td>When needed</td><td>Required when visible text abbreviates, like "2 min".</td><td>2 minutes</td></tr>
+            <tr><td><code>translator_note</code></td><td>Long text</td><td>UI only</td><td>Where it appears, what each variable means, maximum length.</td><td>Lock screen. {fee_amount} is a currency value.</td></tr>
+            <tr><td><code>status</code></td><td>Enum</td><td>Yes</td><td>Draft → In review → Approved → Live</td><td>Approved</td></tr>
+          </tbody>
+        </table>
       </div>
     </section>
 
@@ -801,6 +907,36 @@ td q { font-style: italic; }
       </ul>
     </section>
 
+    <section class="chapter" aria-labelledby="cs1-decisions">
+      <header><span class="key">case.content_system.decisions</span><h2 id="cs1-decisions">Decisions and trade-offs</h2></header>
+      <div class="decisions">
+        <article>
+          <h3>Variables for facts, people for wording</h3>
+          <dl class="tradeoff">
+            <div><dt>Considered</dt><dd>Fully templated copy, generated from the concept.</dd></div>
+            <div><dt>Chose</dt><dd>Facts are variables. Each surface's sentence is written by a person.</dd></div>
+            <div><dt>Why</dt><dd>Templates keep numbers accurate but read like a robot wrote them, and a push notification needs different words than a help article. Variables solve accuracy. Writers handle tone.</dd></div>
+          </dl>
+        </article>
+        <article>
+          <h3>Concepts match how people think</h3>
+          <dl class="tradeoff">
+            <div><dt>Considered</dt><dd>One concept per screen, or one per backend event.</dd></div>
+            <div><dt>Chose</dt><dd>One concept per idea a rider or driver would recognize.</dd></div>
+            <div><dt>Why</dt><dd>People talk about a "cancellation fee". Nobody talks about "trip state cancel post-accept", and modeling by event would split one idea into five.</dd></div>
+          </dl>
+        </article>
+        <article>
+          <h3>One concept end to end, first</h3>
+          <dl class="tradeoff">
+            <div><dt>Considered</dt><dd>Designing the full taxonomy before modeling anything.</dd></div>
+            <div><dt>Chose</dt><dd>Model one concept across every surface, then generalize.</dd></div>
+            <div><dt>Why</dt><dd>A working example exposes edge cases a diagram hides. Modeling the support macro showed that agents also need a refund rule.</dd></div>
+          </dl>
+        </article>
+      </div>
+    </section>
+
     <section class="chapter" aria-labelledby="cs1-flow">
       <header><span class="key">case.content_system.workflow</span><h2 id="cs1-flow">Rethinking the publishing workflow</h2></header>
       <div class="prose"><p>A model only helps if the way teams publish uses it. I mapped how a policy change typically moves today and redesigned it around the concept object.</p></div>
@@ -832,6 +968,59 @@ td q { font-style: italic; }
         <li>Every quarter, review the 20 concepts that drive the most support contacts.</li>
         <li>New strings must reuse an existing concept or propose a new one. No orphans.</li>
         <li>The model maps directly onto tools like Ditto (components and variables) and Contentful (content types and references).</li>
+      </ul>
+    </section>
+
+    <section class="chapter" aria-labelledby="cs1-ai">
+      <header><span class="key">case.content_system.localization_ai</span><h2 id="cs1-ai">Localization and AI support</h2></header>
+      <div class="compare">
+        <section aria-labelledby="l10n-title">
+          <h3 id="l10n-title">Localization</h3>
+          <ul class="rules">
+            <li>Translators get the concept definition and a translator note with every string, so "fee" isn't translated three ways.</li>
+            <li>Facts are formatted by locale: <code>$5.00</code> in en-CA, <code>5,00 $</code> in fr-CA.</li>
+            <li>Each concept name has one approved translation in the glossary, such as "frais d'annulation".</li>
+          </ul>
+        </section>
+        <section aria-labelledby="ai-title">
+          <h3 id="ai-title">Where AI helps, with a person in charge</h3>
+          <ul class="rules">
+            <li><strong>Drift checks:</strong> flag strings that use an avoided term or contradict a fact.</li>
+            <li><strong>First drafts:</strong> suggest surface variants from the definition, within each surface's length limit.</li>
+            <li><strong>Migration:</strong> find legacy strings that probably belong to a concept but aren't linked yet.</li>
+            <li><strong>Never automatic:</strong> AI suggests and a content designer approves. Policy copy is never published without review.</li>
+          </ul>
+        </section>
+      </div>
+    </section>
+
+    <section class="chapter" aria-labelledby="cs1-rollout">
+      <header><span class="key">case.content_system.rollout</span><h2 id="cs1-rollout">Rollout plan and partners</h2></header>
+      <ol class="path">
+        <li><span class="when">Weeks 1–4</span><h3>Pilot</h3><ul><li>Model 20 payment concepts</li><li>Link their existing strings</li><li>Record a baseline for each metric</li></ul></li>
+        <li><span class="when">Weeks 5–10</span><h3>Connect help</h3><ul><li>Help articles reference concepts</li><li>Run the first synced policy change</li></ul></li>
+        <li><span class="when">Next quarter</span><h3>Expand</h3><ul><li>Pickup and safety concepts</li><li>Driver learning content</li><li>Key convention for all new strings</li></ul></li>
+        <li><span class="when">Ongoing</span><h3>Govern</h3><ul><li>Quarterly audits</li><li>Ownership reviews</li><li>Automated drift checks</li></ul></li>
+      </ol>
+      <h3>Who I'd partner with</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">Partner</th><th scope="col">What they need</th><th scope="col">How I'd work with them</th></tr></thead>
+          <tbody>
+            <tr><td>Product designers</td><td>Copy that fits the component and the flow</td><td>Pair in Figma, with string keys visible in the design file</td></tr>
+            <tr><td>Engineers</td><td>Stable keys and a clear variable format</td><td>Agree on the key convention and fallback rules early</td></tr>
+            <tr><td>Policy and operations</td><td>Confidence that rules are stated correctly</td><td>They own the facts and approve definitions</td></tr>
+            <tr><td>Help center and learning teams</td><td>One source to write from</td><td>Reference concepts instead of copying text</td></tr>
+            <tr><td>Localization</td><td>Context and consistent terms</td><td>Translator notes and a glossary entry for each concept</td></tr>
+            <tr><td>Data science</td><td>Clean tags to measure impact</td><td>Tag support contacts and events by <code>concept_id</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>Risks and how I'd reduce them</h3>
+      <ul class="rules prose">
+        <li><strong>Teams keep writing outside the system.</strong> Make the library the fastest way to find and reuse copy, not an extra step.</li>
+        <li><strong>Too many concepts too soon.</strong> A concept qualifies only when it appears on two or more surfaces.</li>
+        <li><strong>Owners move on.</strong> Review dates and a quarterly ownership check catch concepts nobody is looking after.</li>
       </ul>
     </section>
 
@@ -885,6 +1074,43 @@ td q { font-style: italic; }
       <div><h2>How I'd measure it</h2><p>How many riders recover from each error on their own, and support contacts per 1,000 trips for each message.</p></div>
     </div>
 
+    <nav class="toc" aria-label="On this page">
+      <span>On this page</span>
+      <a href="#cs2-process">Process</a><a href="#cs2-map">Failure map</a><a href="#cs2-frame">Framework</a><a href="#cs2-anatomy">Component spec</a><a href="#cs2-iterate">Iteration</a><a href="#cs2-rewrites">Rewrites</a><a href="#cs2-style">Word list</a><a href="#cs2-handoff">Handoff</a><a href="#cs2-test">Testing</a>
+    </nav>
+
+    <section class="chapter" aria-labelledby="cs2-process">
+      <header><span class="key">case.error_states.process</span><h2 id="cs2-process">Process</h2></header>
+      <ol class="framework">
+        <li><strong>Map</strong><span>Walked through a ride from request to receipt and listed every moment that can fail.</span></li>
+        <li><strong>Prioritize</strong><span>Scored each moment by how often it happens and how stressful it is for the rider.</span></li>
+        <li><strong>Frame</strong><span>Wrote a three-question framework, a tone scale, and a component spec for error messages.</span></li>
+        <li><strong>Write and iterate</strong><span>Drafted each message several times and critiqued every draft against the framework.</span></li>
+        <li><strong>Review</strong><span>Checked length limits, screen reader output, reading level, and French text expansion.</span></li>
+        <li><strong>Hand off and test</strong><span>Mapped error reasons to messages for engineering and planned a comprehension test.</span></li>
+      </ol>
+    </section>
+
+    <section class="chapter" aria-labelledby="cs2-map">
+      <header><span class="key">case.error_states.failure_map</span><h2 id="cs2-map">Mapping where rides go wrong</h2></header>
+      <div class="prose"><p>For each failure, I wrote down the question the rider is really asking. That question, not the technical cause, is what the message has to answer. Frequency and stress are my estimates. With real data, I'd use error logs and support contact volume.</p></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">Stage</th><th scope="col">Moment</th><th scope="col">Rider's real question</th><th scope="col">Frequency</th><th scope="col">Stress</th><th scope="col">Scope</th></tr></thead>
+          <tbody>
+            <tr><td>Request</td><td>Payment declined</td><td>Can I still get a ride?</td><td>High</td><td>High</td><td class="yes">This round</td></tr>
+            <tr><td>Request</td><td>No drivers nearby</td><td>Should I wait or find another way home?</td><td>Medium</td><td>High</td><td class="yes">This round</td></tr>
+            <tr><td>Request</td><td>Promo code fails</td><td>Will I pay full price?</td><td>Medium</td><td>Low</td><td class="yes">This round</td></tr>
+            <tr><td>Pickup</td><td>Driver cancels</td><td>Do I have to start over? Am I charged?</td><td>Medium</td><td>High</td><td class="yes">This round</td></tr>
+            <tr><td>Pickup</td><td>Pickup spot changes</td><td>Where do I go now?</td><td>Medium</td><td>High</td><td class="yes">This round</td></tr>
+            <tr><td>Any</td><td>Lost connection</td><td>Did my ride get cancelled?</td><td>Medium</td><td>Medium</td><td class="yes">This round</td></tr>
+            <tr><td>On trip</td><td>Route changes</td><td>Is my driver going the wrong way?</td><td>Low</td><td>Medium</td><td class="later">Next round</td></tr>
+            <tr><td>After trip</td><td>Unexpected charge</td><td>Why did I pay more than I was quoted?</td><td>Low</td><td>Medium</td><td class="later">Next round</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
     <section class="chapter" aria-labelledby="cs2-frame">
       <header><span class="key">case.error_states.framework</span><h2 id="cs2-frame">Every message answers three questions</h2></header>
       <ol class="framework">
@@ -925,6 +1151,51 @@ td q { font-style: italic; }
           <blockquote>"Your ride stopped unexpectedly. Are you OK?"</blockquote>
         </div>
       </div>
+    </section>
+
+    <section class="chapter" aria-labelledby="cs2-anatomy">
+      <header><span class="key">case.error_states.component_spec</span><h2 id="cs2-anatomy">Anatomy of an error message</h2></header>
+      <div class="prose"><p>I turned the framework into a reusable component spec, so every team writes errors with the same structure and the same limits.</p></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">Slot</th><th scope="col">Answers</th><th scope="col">Limit</th><th scope="col">Rules</th></tr></thead>
+          <tbody>
+            <tr><td>Title</td><td>What happened?</td><td>40</td><td>Sentence case. States the outcome. No "Error" or "Oops".</td></tr>
+            <tr><td>Body</td><td>What does it mean for me?</td><td>120 in-app · 90 push</td><td>Answer the worry first. One or two sentences.</td></tr>
+            <tr><td>Primary action</td><td>What can I do now?</td><td>20</td><td>Starts with a verb and names the fix, like "Change payment".</td></tr>
+            <tr><td>Secondary action</td><td>Is there another way?</td><td>20</td><td>Optional. Only when a real alternative exists.</td></tr>
+            <tr><td>Accessible label</td><td>What does a screen reader say?</td><td>None</td><td>Expands abbreviations and describes icons.</td></tr>
+            <tr><td>Support code</td><td>What does support need?</td><td>None</td><td>Logged, never shown. Available in the help flow.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="chapter" aria-labelledby="cs2-iterate">
+      <header><span class="key">case.error_states.iteration</span><h2 id="cs2-iterate">One message, four drafts</h2></header>
+      <div class="prose"><p>Most of the work happens between the first draft and the last. Here's how the payment declined message changed, and what each critique taught me.</p></div>
+      <ol class="storyboard">
+        <li>
+          <span class="frame-no">Draft 1</span>
+          <div class="screen"><strong>Payment failed</strong><span>Please update your payment method.</span></div>
+          <p class="design-note">Says what to do, but not why. Riders may think the app is broken and keep retrying.</p>
+        </li>
+        <li>
+          <span class="frame-no">Draft 2</span>
+          <div class="screen"><strong>Your card was declined</strong><span>Sorry! Your payment didn't go through. Please update your payment method and try again.</span></div>
+          <p class="design-note">Clearer cause. But "Sorry!" adds length without helping, and "try again" invites a retry with the same card.</p>
+        </li>
+        <li>
+          <span class="frame-no">Draft 3</span>
+          <div class="screen"><strong>Your card was declined</strong><span>Your bank didn't approve this payment. Update your payment method.</span></div>
+          <p class="design-note">Naming the bank tells riders where the problem is. But "payment method" is system language. Riders think in cards.</p>
+        </li>
+        <li class="final">
+          <span class="frame-no">Final</span>
+          <div class="screen"><strong>Your card was declined</strong><span>Your bank didn't approve this payment. Choose another card or add a new one to request your ride.</span></div>
+          <p class="design-note">Uses riders' words, offers two concrete fixes, and ends with their goal: getting the ride.</p>
+        </li>
+      </ol>
     </section>
 
     <section class="chapter" aria-labelledby="cs2-rewrites">
@@ -1006,6 +1277,46 @@ td q { font-style: italic; }
       </div>
     </section>
 
+    <section class="chapter" aria-labelledby="cs2-style">
+      <header><span class="key">case.error_states.word_list</span><h2 id="cs2-style">Style guide excerpt: word list</h2></header>
+      <div class="prose"><p>Using the same words every time makes an app feel trustworthy. This excerpt covers the terms that came up most often in failure moments.</p></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">Use</th><th scope="col">Avoid</th><th scope="col">Why</th></tr></thead>
+          <tbody>
+            <tr><td>pickup spot</td><td>pickup location, PU point</td><td>Matches what riders say out loud.</td></tr>
+            <tr><td>Change payment</td><td>Update payment method, Manage payment instrument</td><td>Names the action in riders' words.</td></tr>
+            <tr><td>declined</td><td>failed, rejected</td><td>Banks use "declined", so the word matches the rider's next step.</td></tr>
+            <tr><td>cancellation fee</td><td>late cancel fee, penalty</td><td>One name on every surface. See the <a href="#cs1-model">content model</a>.</td></tr>
+            <tr><td>min, with the label "minutes"</td><td>mins, m</td><td>Short on screen, complete for screen readers.</td></tr>
+            <tr><td>You're offline</td><td>Network error, Server unavailable</td><td>Describes the rider's situation, not the system's.</td></tr>
+            <tr><td>Contact support</td><td>Reach out, Ping us</td><td>Plain and easy to translate.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="chapter" aria-labelledby="cs2-handoff">
+      <header><span class="key">case.error_states.handoff</span><h2 id="cs2-handoff">Handing off to engineering</h2></header>
+      <div class="prose"><p>Good copy still fails if it shows up for the wrong error. I mapped example error reasons to message keys, and wrote a fallback for anything that isn't mapped yet.</p></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">Error reason (example)</th><th scope="col">Message key</th><th scope="col">Shown when</th></tr></thead>
+          <tbody>
+            <tr><td><code>card_declined</code></td><td><code>rider.request.payment_declined.alert</code></td><td>The bank declines the charge</td></tr>
+            <tr><td><code>card_expired</code></td><td><code>rider.request.payment_expired.alert</code></td><td>The card on file has expired. The fix is different, so the message is too.</td></tr>
+            <tr><td><code>no_supply</code></td><td><code>rider.request.no_drivers.empty_state</code></td><td>No driver can accept within the search area</td></tr>
+            <tr><td><code>driver_cancelled</code></td><td><code>rider.pickup.driver_cancelled.push</code></td><td>The matched driver cancels before pickup</td></tr>
+            <tr><td><code>offline</code></td><td><code>rider.global.offline.banner</code></td><td>The phone loses connection for more than 5 seconds</td></tr>
+            <tr><td><code>unknown</code></td><td><code>rider.global.fallback_error.alert</code></td><td>Any reason without a mapped message</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>The fallback message</h3>
+      <div class="msg after fallback"><span class="tag">✓ Fallback</span><p class="m-title" data-text data-limit="40">We couldn't request your ride</p><p class="m-body" data-text data-limit="120">Check your connection and try again. If this keeps happening, contact support.</p><div class="m-actions"><span>Try again</span><span>Contact support</span></div><p class="cc" data-count></p></div>
+      <p class="note">The fallback is honest about what we know. It still offers a next step, and support can see the logged code.</p>
+    </section>
+
     <section class="chapter" aria-labelledby="cs2-a11y">
       <header><span class="key">case.error_states.accessibility</span><h2 id="cs2-a11y">Accessible by default</h2></header>
       <ul class="checklist">
@@ -1016,6 +1327,30 @@ td q { font-style: italic; }
         <li>Plain language, aiming for a grade 6 to 8 reading level, checked in Hemingway Editor.</li>
         <li>Translation-ready: no idioms like "hang tight", and room for French text to run about 30% longer, which matters for Canadian French.</li>
       </ul>
+    </section>
+
+    <section class="chapter" aria-labelledby="cs2-test">
+      <header><span class="key">case.error_states.test_plan</span><h2 id="cs2-test">Testing plan</h2></header>
+      <div class="compare">
+        <section aria-labelledby="test-setup">
+          <h3 id="test-setup">Setup</h3>
+          <ul class="rules">
+            <li><strong>Participants:</strong> 5 people who have used a rideshare app in the past month.</li>
+            <li><strong>Method:</strong> unmoderated test on a phone mockup. Each person sees the before or after version of each message, for 5 seconds.</li>
+            <li><strong>Order:</strong> versions are rotated so nobody sees both versions of the same message.</li>
+          </ul>
+        </section>
+        <section aria-labelledby="test-questions">
+          <h3 id="test-questions">Questions and success criteria</h3>
+          <ol>
+            <li>What happened?</li>
+            <li>Will you be charged?</li>
+            <li>What would you do next?</li>
+            <li>How confident are you, from 1 to 5?</li>
+          </ol>
+          <p><strong>Success:</strong> at least 4 of 5 people answer "What would you do next?" correctly after one read, and confidence is higher than for the before version.</p>
+        </section>
+      </div>
     </section>
 
     <section class="chapter" aria-labelledby="cs2-measure">
@@ -1069,6 +1404,24 @@ td q { font-style: italic; }
       <div><h2>How I'd measure it</h2><p>Time from sign-up to first trip, and support contacts from drivers during their first 10 trips.</p></div>
     </div>
 
+    <nav class="toc" aria-label="On this page">
+      <span>On this page</span>
+      <a href="#cs3-process">Process</a><a href="#cs3-learners">Learners</a><a href="#cs3-journey">First week</a><a href="#cs3-path">Learning path</a><a href="#cs3-lessons">Lesson outlines</a><a href="#cs3-lesson">Sample lesson</a><a href="#cs3-script">Video script</a><a href="#cs3-kb">Help article</a><a href="#cs3-measure">Evaluation</a>
+    </nav>
+
+    <section class="chapter" aria-labelledby="cs3-process">
+      <header><span class="key">case.driver_learning.process</span><h2 id="cs3-process">Process</h2></header>
+      <div class="prose"><p>I followed the ADDIE model, with an extra step to keep revising after launch.</p></div>
+      <ol class="framework">
+        <li><strong>Analyze</strong><span>Defined the learners, their constraints, and what they need to do in their first week.</span></li>
+        <li><strong>Design</strong><span>Wrote learning objectives and sorted every topic by when it matters.</span></li>
+        <li><strong>Develop</strong><span>Outlined lessons, wrote a video script, a knowledge check, and a help article.</span></li>
+        <li><strong>Implement</strong><span>Planned where each piece appears: before driving, in context, or in the learning center.</span></li>
+        <li><strong>Evaluate</strong><span>Built an evaluation plan across four levels, from reaction to business results.</span></li>
+        <li><strong>Revise</strong><span>Update lessons when pass rates or support contacts show that something is confusing.</span></li>
+      </ol>
+    </section>
+
     <section class="chapter" aria-labelledby="cs3-learners">
       <header><span class="key">case.driver_learning.audience</span><h2 id="cs3-learners">Who's learning, and when</h2></header>
       <div class="prose">
@@ -1091,6 +1444,24 @@ td q { font-style: italic; }
           <li>Know what to do when a rider cancels or doesn't show up.</li>
           <li>Find and use the in-app safety tools.</li>
         </ol>
+      </div>
+    </section>
+
+    <section class="chapter" aria-labelledby="cs3-journey">
+      <header><span class="key">case.driver_learning.journey</span><h2 id="cs3-journey">A new driver's first week</h2></header>
+      <p class="note">Built from my assumptions. I'd validate it with interviews before designing further.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">Moment</th><th scope="col">What they're thinking</th><th scope="col">Feeling</th><th scope="col">Learning opportunity</th></tr></thead>
+          <tbody>
+            <tr><td>Approved to drive</td><td>"Am I ready? What if I mess up?"</td><td>Excited, nervous</td><td>Keep pre-drive learning short and confidence-building</td></tr>
+            <tr><td>Going online for the first time</td><td>"What happens when a request comes in?"</td><td>Anxious</td><td>A one-tap checklist before going online</td></tr>
+            <tr><td>First pickup</td><td>"Is this the right person?"</td><td>Alert, unsure</td><td>Rider confirmation, already practiced</td></tr>
+            <tr><td>First busy pickup</td><td>"There's nowhere to stop."</td><td>Stressed</td><td>A tip when the car is stopped near a busy pin</td></tr>
+            <tr><td>First earnings</td><td>"Why is this different from what I expected?"</td><td>Confused</td><td>A walkthrough of their own receipt</td></tr>
+            <tr><td>End of week one</td><td>"Is this worth it?"</td><td>Reflective</td><td>A recap that shows progress and what's next</td></tr>
+          </tbody>
+        </table>
       </div>
     </section>
 
@@ -1139,6 +1510,40 @@ td q { font-style: italic; }
       </ol>
     </section>
 
+    <section class="chapter" aria-labelledby="cs3-lessons">
+      <header><span class="key">case.driver_learning.outlines</span><h2 id="cs3-lessons">Pre-drive lesson outlines</h2></header>
+      <div class="prose"><p>Three lessons, about 8 minutes in total. Each one has a single objective and a check that proves the driver can do it.</p></div>
+      <div class="decisions">
+        <article>
+          <span class="eyebrow">Lesson 1 · 2 min</span>
+          <h3>Confirming your rider</h3>
+          <dl class="tradeoff">
+            <div><dt>Objective</dt><dd>Confirm the rider's name before starting a trip.</dd></div>
+            <div><dt>Format</dt><dd>60-second video, then practice.</dd></div>
+            <div><dt>Check</dt><dd>Spot the mismatch in two short scenarios.</dd></div>
+          </dl>
+        </article>
+        <article>
+          <span class="eyebrow">Lesson 2 · 2 min</span>
+          <h3>Safety tools</h3>
+          <dl class="tradeoff">
+            <div><dt>Objective</dt><dd>Find and use emergency help and trip sharing.</dd></div>
+            <div><dt>Format</dt><dd>Interactive tour of the real app screen.</dd></div>
+            <div><dt>Check</dt><dd>Find the safety button in under 10 seconds.</dd></div>
+          </dl>
+        </article>
+        <article>
+          <span class="eyebrow">Lesson 3 · 4 min</span>
+          <h3>What happens on a trip</h3>
+          <dl class="tradeoff">
+            <div><dt>Objective</dt><dd>Describe each step from request to drop-off.</dd></div>
+            <div><dt>Format</dt><dd>Illustrated walkthrough.</dd></div>
+            <div><dt>Check</dt><dd>Put five trip steps in the right order.</dd></div>
+          </dl>
+        </article>
+      </div>
+    </section>
+
     <section class="chapter" aria-labelledby="cs3-lesson">
       <header><span class="key">case.driver_learning.sample_lesson</span><h2 id="cs3-lesson">Sample micro-lesson: busy pickups</h2></header>
       <div class="prose"><p>A two-minute lesson follows the same four beats every time, so drivers know what to expect.</p></div>
@@ -1181,6 +1586,48 @@ td q { font-style: italic; }
       </form>
     </section>
 
+    <section class="chapter" aria-labelledby="cs3-script">
+      <header><span class="key">case.driver_learning.video_script</span><h2 id="cs3-script">Video script excerpt: confirming your rider</h2></header>
+      <div class="prose"><p>Written to work with the sound off first. Every key point appears on screen, and the voiceover adds detail.</p></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">Time</th><th scope="col">Visual</th><th scope="col">On-screen text</th><th scope="col">Voiceover</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">0:00</td><td>Driver pulls up. Two people on the curb wave.</td><td>Who's your rider?</td><td>Two people are waving. Only one of them requested your trip.</td></tr>
+            <tr><td class="mono">0:08</td><td>Driver lowers the window.</td><td>Ask: "Can I get your name?"</td><td>Ask for their name before you say anything about the trip.</td></tr>
+            <tr><td class="mono">0:22</td><td>Rider answers. Close-up of the name in the app.</td><td>Match the name. Then start.</td><td>If the name matches your app, you're good to go.</td></tr>
+            <tr><td class="mono">0:38</td><td>A name that doesn't match. Driver politely waits.</td><td>Not a match? Don't start.</td><td>If it doesn't match, don't start the trip. Message your rider from the app.</td></tr>
+            <tr><td class="mono">0:50</td><td>Summary card.</td><td>Ask. Match. Start.</td><td>Ask, match, start. Every trip.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="chapter" aria-labelledby="cs3-kb">
+      <header><span class="key">case.driver_learning.help_article</span><h2 id="cs3-kb">Knowledge base article</h2></header>
+      <div class="prose"><p>The same topic in the help center, written for a driver who searches for an answer. It's built for scanning: the answer first, then steps, then special cases.</p></div>
+      <article class="kb" aria-label="Sample help article">
+        <span class="key">help.driver.pickup_spot.article</span>
+        <p class="kb-crumb">Driver help › Pickups</p>
+        <h3>Where can I stop for a pickup?</h3>
+        <p class="kb-answer">Stop at the nearest legal spot to the pin, then message your rider where you are. Never stop in a bike lane, at a bus stop, or in a fire route.</p>
+        <h4>If you can't stop at the pin</h4>
+        <ol>
+          <li>Drive past slowly and look for a legal spot within a short walk.</li>
+          <li>Once you've stopped, tap <strong>Message</strong> and tell your rider where you are. For example: "I'm at the corner of King and John."</li>
+          <li>Wait for your rider. Your wait time starts when you arrive near the pin.</li>
+        </ol>
+        <h4>At airports and event venues</h4>
+        <p>Some places have marked pickup zones. As you get close, the app shows the zone and how to get there. Follow the zone instead of the pin.</p>
+        <h4>Related articles</h4>
+        <ul>
+          <li>What if my rider doesn't show up?</li>
+          <li>How cancellation fees work for drivers</li>
+        </ul>
+        <p class="kb-foot">Was this article helpful? Yes · No</p>
+      </article>
+    </section>
+
     <section class="chapter" aria-labelledby="cs3-connect">
       <header><span class="key">case.driver_learning.connected</span><h2 id="cs3-connect">Connected to the content system</h2></header>
       <div class="prose">
@@ -1201,12 +1648,13 @@ td q { font-style: italic; }
     </section>
 
     <section class="chapter" aria-labelledby="cs3-measure">
-      <header><span class="key">case.driver_learning.metrics</span><h2 id="cs3-measure">How I'd measure success</h2></header>
+      <header><span class="key">case.driver_learning.evaluation</span><h2 id="cs3-measure">Evaluation plan</h2></header>
+      <div class="prose"><p>I used the four levels of the Kirkpatrick model, so the evaluation looks past completion rates to whether drivers actually do things differently.</p></div>
       <ul class="metrics">
-        <li><strong>Time to first trip</strong><span>Days from sign-up to first completed trip. Less up-front training should make this shorter.</span></li>
-        <li><strong>Early support contacts</strong><span>Contacts from drivers in their first 10 trips, by topic.</span></li>
-        <li><strong>First-try pass rate</strong><span>Per question, to find content that confuses people, not just who passed.</span></li>
-        <li><strong>30-day retention</strong><span>New drivers still driving after a month.</span></li>
+        <li><strong>Level 1 · Reaction</strong><span>A one-tap "Was this useful?" after each lesson and tip, with an optional comment.</span></li>
+        <li><strong>Level 2 · Learning</strong><span>First-try pass rate for each question, to find confusing content rather than just counting who passed.</span></li>
+        <li><strong>Level 3 · Behavior</strong><span>Fewer unsafe-stop reports and fewer "couldn't find my driver" contacts during the first 10 trips.</span></li>
+        <li><strong>Level 4 · Results</strong><span>Days from approval to first trip, early support contacts, and 30-day new driver retention.</span></li>
       </ul>
     </section>
 
@@ -1243,22 +1691,22 @@ td q { font-style: italic; }
 
   function route(initial) {
     var hash = decodeURIComponent(location.hash.replace('#', ''));
-    var target = names.indexOf(hash) !== -1 ? hash : 'home';
-    var anchor = null;
-    if (target === 'home' && hash && hash !== 'home') {
-      anchor = document.getElementById(hash);
-    }
+    var el = hash ? document.getElementById(hash) : null;
+    var owner = el ? (el.hasAttribute('data-view') ? el : el.closest('[data-view]')) : null;
+    var target = owner ? owner.getAttribute('data-view') : 'home';
+    var isView = !!el && el === owner;
     views.forEach(function (v) { v.hidden = v.getAttribute('data-view') !== target; });
 
     if (target === 'home') {
       document.title = baseTitle;
-      if (anchor) { anchor.scrollIntoView(); }
-      else if (!initial) { window.scrollTo(0, 0); }
     } else {
-      var view = document.querySelector('[data-view="' + target + '"]');
-      var h1 = view.querySelector('h1');
-      document.title = h1.textContent + ' · ' + baseTitle;
+      document.title = owner.querySelector('h1').textContent + ' · ' + baseTitle;
+    }
+    if (el && !isView) {
+      el.scrollIntoView();
+    } else if (target !== 'home' || !initial) {
       window.scrollTo(0, 0);
+      var h1 = owner && target !== 'home' ? owner.querySelector('h1') : null;
       if (!initial && h1) { h1.focus({ preventScroll: true }); }
     }
   }

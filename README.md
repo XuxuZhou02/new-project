@@ -11,6 +11,8 @@ It's a single static file (`index.html`) that can be published with GitHub Pages
 | **When the ride doesn't go to plan** | UX writing (UI, notifications, errors), brand voice, accessibility | A three-question framework for error copy, tone that shifts with the stakes, six before/after rewrites with automatic character counts, accessibility and French text expansion |
 | **Ready for trip one** | Learning experience design, learning center, knowledge base | Learning objectives, sorting topics into "before you drive" vs. "when it happens", a learning path, a micro-lesson storyboard, an interactive knowledge check with feedback, and a link back to the content model from case study 1 |
 
+Each case study also includes its process, decisions and trade-offs, partner and handoff details, and a measurement or evaluation plan. The home page has a "Skills at a glance" table that maps each skill to evidence.
+
 All three case studies use the same rideshare scenario, which shows the "systems mind" the job description asks for.
 
 ## What to change before you submit
