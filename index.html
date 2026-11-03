@@ -198,7 +198,7 @@ mark { background: var(--marker); color: var(--marker-ink); padding: 0 0.15em; b
 .section-head h2 { font-size: var(--step-3); }
 
 .work-grid { display: grid; gap: 20px; grid-template-columns: 1fr; }
-@media (min-width: 900px) { .work-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 760px) { .work-grid { grid-template-columns: repeat(2, 1fr); } }
 .work-card {
   display: grid; grid-template-rows: auto 1fr; text-decoration: none; color: var(--ink);
   background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden;
@@ -285,7 +285,7 @@ mark { background: var(--marker); color: var(--marker-ink); padding: 0 0.15em; b
   max-width: 32ch; padding-left: 20px; border-left: 4px solid var(--marker); text-wrap: balance;
 }
 
-.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.table-wrap { position: relative; overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
 table { border-collapse: collapse; width: 100%; min-width: 620px; font-size: 0.95rem; }
 th, td { text-align: left; vertical-align: top; padding: 12px 16px; border-bottom: 1px solid var(--line); }
 th { font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
@@ -514,6 +514,117 @@ td q { font-style: italic; }
 .later { color: var(--muted); }
 td a { white-space: nowrap; }
 .msg.fallback { max-width: 520px; }
+
+/* ---------- Case study 4: glance ---------- */
+:root { --road: #2b2f3c; --lane: #ffe45c; --app: #10131c; --app-ink: #f4f5f8; --app-muted: #a9afc2; }
+.spec-glance { display: grid; gap: 10px; justify-items: start; }
+.sg-card { background: var(--app); color: var(--app-ink); border-radius: 12px; padding: 12px 14px; display: grid; gap: 2px; min-width: 200px; box-shadow: 0 6px 18px rgba(16, 19, 28, 0.25); }
+.sg-card strong { font-family: var(--font-display); font-size: 1.2rem; }
+.sg-card span { color: var(--app-muted); font-size: 0.95rem; }
+.sg-timer { font-family: var(--font-mono); font-size: 0.78rem; font-weight: 500; padding: 3px 10px; border-radius: 999px; background: var(--marker); color: var(--marker-ink); }
+
+.gg { display: grid; gap: 20px; grid-template-columns: 1fr; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(16px, 3vw, 28px); }
+@media (min-width: 900px) { .gg { grid-template-columns: minmax(280px, 360px) 1fr; } }
+.gg-settings { display: flex; flex-wrap: wrap; gap: 10px 20px; align-items: center; grid-column: 1 / -1; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
+.gg-settings fieldset { border: 0; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.gg-settings legend { float: left; font-size: 0.85rem; font-weight: 600; margin-right: 6px; }
+.chip-radio { position: relative; }
+.chip-radio input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.chip-radio span { display: inline-block; font-size: 0.85rem; font-weight: 600; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--paper); }
+.chip-radio input:checked + span { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.chip-radio input:focus-visible + span { outline: 3px solid var(--accent); outline-offset: 2px; }
+.gg-untimed { display: inline-flex; gap: 8px; align-items: center; font-size: 0.9rem; }
+.gg-untimed input { width: 18px; height: 18px; accent-color: var(--accent); }
+
+.dash { position: relative; border-radius: 14px; overflow: hidden; min-height: 300px; background: var(--road); display: grid; place-items: end center; padding: 18px; }
+.dash::before {
+  content: ""; position: absolute; left: 50%; top: -40px; bottom: -40px; width: 8px; transform: translateX(-50%);
+  background: repeating-linear-gradient(to bottom, var(--lane) 0 28px, transparent 28px 64px); opacity: 0.85;
+}
+.dash.is-driving::before { animation: lane 0.5s linear infinite; }
+@keyframes lane { from { transform: translateX(-50%) translateY(0); } to { transform: translateX(-50%) translateY(64px); } }
+.dash::after { content: ""; position: absolute; inset: auto 0 0; height: 46%; background: linear-gradient(to top, rgba(0,0,0,0.55), transparent); }
+.phone { position: relative; z-index: 1; width: min(100%, 290px); min-height: 150px; border-radius: 18px; background: var(--app); color: var(--app-ink); border: 3px solid #3a3f50; padding: 16px; display: grid; align-content: center; gap: 4px; }
+.phone .p-status { font-size: 0.8rem; color: var(--app-muted); display: flex; align-items: center; gap: 8px; }
+.phone .p-status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #66c895; }
+.phone .p-title { font-family: var(--font-display); font-weight: 700; font-size: 1.35rem; line-height: 1.15; }
+.phone .p-body { color: var(--app-muted); font-size: 1rem; line-height: 1.35; }
+.phone.is-alert { border-color: var(--lane); animation: pop 0.18s ease-out; }
+@keyframes pop { from { transform: scale(0.94); opacity: 0.4; } to { transform: scale(1); opacity: 1; } }
+.phone .p-hidden { text-align: center; color: var(--app-muted); font-size: 0.95rem; }
+
+.gg-stage { display: grid; gap: 14px; align-content: start; min-width: 0; }
+.gg-stage h3 { font-size: var(--step-2); }
+.gg-stage h3:focus { outline: none; }
+.gg-status { font-family: var(--font-mono); font-size: 0.85rem; color: var(--muted); }
+.gg-options { display: grid; gap: 10px; }
+.gg-options button {
+  text-align: left; font: 500 1rem/1.4 var(--font-body); color: var(--ink); cursor: pointer;
+  padding: 12px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper);
+}
+.gg-options button:hover { border-color: var(--accent); }
+.gg-mini { display: grid; gap: 10px; grid-template-columns: 1fr; }
+@media (min-width: 640px) { .gg-mini { grid-template-columns: 1fr 1fr; } }
+.gg-mini .msg { font-size: 0.95rem; }
+.gg-score { display: grid; gap: 10px; }
+.gg-bar { display: grid; grid-template-columns: 9em 1fr 3em; gap: 10px; align-items: center; font-size: 0.95rem; }
+.gg-bar .track { height: 12px; border-radius: 999px; background: var(--line); overflow: hidden; }
+.gg-bar .track i { display: block; height: 100%; border-radius: 999px; }
+.gg-bar.before .track i { background: var(--bad); }
+.gg-bar.after .track i { background: var(--good); }
+.gg-bar b { font-family: var(--font-mono); font-weight: 500; text-align: right; }
+
+.tiers { display: grid; gap: 12px; grid-template-columns: 1fr; }
+@media (min-width: 640px) { .tiers { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1000px) { .tiers { grid-template-columns: repeat(4, 1fr); } }
+.tier { background: var(--surface); border: 1px solid var(--line); border-top: 5px solid var(--tier, var(--accent)); border-radius: var(--radius); padding: 16px; display: grid; gap: 8px; align-content: start; min-width: 0; }
+.tier h3 { font-size: var(--step-1); }
+.tier p { font-size: 0.93rem; color: var(--muted); }
+.tier dl { margin: 0; display: grid; gap: 6px; font-size: 0.9rem; }
+.tier dt { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.tier dd { margin: 0; }
+.tier.t0 { --tier: var(--line); }
+.tier.t1 { --tier: #6b8afd; }
+.tier.t2 { --tier: #e0a100; }
+.tier.t3 { --tier: var(--bad); }
+
+.queue { list-style: none; padding: 0; display: grid; gap: 10px; max-width: 820px; }
+.queue li { display: grid; grid-template-columns: 4.2em 1fr; gap: 14px; align-items: start; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; }
+.queue .t { font-family: var(--font-mono); font-size: 0.85rem; color: var(--muted); padding-top: 2px; }
+.queue strong { display: block; }
+.queue span { color: var(--muted); font-size: 0.95rem; }
+.queue li.held { border-style: dashed; }
+
+.lint { display: grid; gap: 20px; grid-template-columns: 1fr; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(16px, 3vw, 28px); }
+@media (min-width: 900px) { .lint { grid-template-columns: 1fr 1fr; } }
+.lint textarea {
+  width: 100%; min-height: 110px; resize: vertical; font: 400 1.05rem/1.5 var(--font-body); color: var(--ink);
+  background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 12px;
+}
+.lint label { font-weight: 600; font-size: 0.9rem; }
+.lint-left { display: grid; gap: 10px; align-content: start; min-width: 0; }
+.lint-examples { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.lint-examples span { font-size: 0.8rem; color: var(--muted); margin-right: 2px; }
+.lint-examples button { font: 600 0.8rem/1 var(--font-body); padding: 7px 11px; border-radius: 999px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); cursor: pointer; }
+.lint-examples button:hover { border-color: var(--accent); color: var(--accent); }
+.lint-right { display: grid; gap: 12px; align-content: start; min-width: 0; }
+.lint-preview { background: var(--road); border-radius: 12px; padding: 16px; display: grid; place-items: center; }
+.lint-preview .phone { min-height: 110px; }
+.lint-preview mark { background: var(--bad); color: #fff; }
+.lint-score { font-family: var(--font-display); font-weight: 700; font-size: var(--step-1); }
+.lint-checks { list-style: none; padding: 0; display: grid; gap: 8px; }
+.lint-checks li { display: grid; grid-template-columns: 24px 1fr; gap: 10px; font-size: 0.95rem; }
+.lint-checks li::before { width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 0.8rem; }
+.lint-checks li.pass::before { content: "✓"; background: color-mix(in srgb, var(--good) 18%, transparent); color: var(--good); }
+.lint-checks li.fail::before { content: "!"; background: color-mix(in srgb, var(--bad) 18%, transparent); color: var(--bad); }
+.lint-checks small { display: block; color: var(--muted); font-size: 0.85rem; }
+
+.say { font: 600 0.82rem/1 var(--font-body); padding: 8px 12px; border-radius: 999px; border: 1px solid var(--accent); background: transparent; color: var(--accent); cursor: pointer; white-space: nowrap; }
+.say:hover { background: var(--accent-soft); }
+.say[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.screen-cell strong { display: block; }
+.screen-cell span { color: var(--muted); }
 </style>
 </head>
 <body>
@@ -555,7 +666,7 @@ td a { white-space: nowrap; }
       <div class="section-head">
         <span class="key">portfolio.home.work.title</span>
         <h2 id="work-title">Selected work</h2>
-        <p class="note">Three self-initiated case studies, one for each part of content systems work: information architecture, UX writing, and learning experience design. All three use the same rideshare scenario, so you can see how one concept travels across surfaces.</p>
+        <p class="note">Four self-initiated case studies covering information architecture, UX writing, and learning experience design. All four use the same rideshare scenario, so you can see how one concept travels across surfaces. The fourth one is playable: try reading driver copy in 1.5 seconds.</p>
       </div>
       <div class="work-grid">
         <a class="work-card" href="#content-system">
@@ -600,6 +711,20 @@ td a { white-space: nowrap; }
             <span class="more">Read case study →</span>
           </div>
         </a>
+        <a class="work-card" href="#glance">
+          <div class="specimen" aria-hidden="true">
+            <div class="spec-glance">
+              <div class="sg-card"><strong>Pickup moved</strong><span>120 King St W</span></div>
+              <span class="sg-timer">read in 1.5 s</span>
+            </div>
+          </div>
+          <div class="body">
+            <ul class="tags" aria-label="Skills"><li>UX writing</li><li>Voice &amp; audio</li><li>Content rules</li><li>Playable</li></ul>
+            <h3>Written for a two-second glance</h3>
+            <p>Attention tiers, word budgets, and voice scripts for drivers reading on the move. Includes a game that tests whether copy survives a 1.5-second look.</p>
+            <span class="more">Play and read →</span>
+          </div>
+        </a>
       </div>
     </div>
   </section>
@@ -624,6 +749,8 @@ td a { white-space: nowrap; }
             <tr><td>Accessibility and localization</td><td>Screen reader labels, plain language, Canadian French expansion, captions</td><td><a href="#cs2-a11y">Accessibility</a></td></tr>
             <tr><td>Strategy and metrics</td><td>Success metrics for each project, Kirkpatrick evaluation plan, testing plan</td><td><a href="#cs3-measure">Evaluation</a></td></tr>
             <tr><td>Cross-functional collaboration</td><td>Partner map, engineering handoff with error mapping</td><td><a href="#cs2-handoff">Handoff</a></td></tr>
+            <tr><td>Writing under hard constraints</td><td>Seven-word glance budget, six rewrites tested in a timed game, voice scripts</td><td><a href="#cs4-play">Glance test</a></td></tr>
+            <tr><td>Content rules as tools</td><td>Attention tiers, a priority queue, and a working content lint that checks copy as you type</td><td><a href="#cs4-lint">Budget checker</a></td></tr>
           </tbody>
         </table>
       </div>
@@ -1668,6 +1795,349 @@ td a { white-space: nowrap; }
 
     <nav class="next-case" aria-label="Next case study">
       <a class="back" href="#work">← All work</a>
+      <div><span class="eyebrow">Next</span><br><a class="big" href="#glance">Written for a two-second glance →</a></div>
+    </nav>
+  </div>
+</article>
+
+<!-- =========================================================
+     CASE STUDY 4 — Writing for in-motion attention (playable)
+     ========================================================= -->
+<article data-view="glance" id="glance" aria-labelledby="cs4-title">
+  <div class="frame">
+    <header class="case-hero">
+      <a class="back" href="#work">← All work</a>
+      <span class="key">case.glance.title</span>
+      <ul class="tags" aria-label="Skills"><li>UX writing</li><li>Voice &amp; audio</li><li>Information architecture</li><li>Content rules</li><li>Accessibility</li></ul>
+      <h1 id="cs4-title" tabindex="-1">Written for a two-second glance</h1>
+      <p class="lede">Drivers read their app while the car is moving. I designed rules that decide what a driver should see, hear, or not get at all, based on what the car is doing. Then I built a game to test whether copy survives a 1.5-second look.</p>
+      <dl class="meta">
+        <div><dt>Role</dt><dd>UX writer and content strategist (solo)</dd></div>
+        <div><dt>Type</dt><dd>Self-initiated concept project with a working prototype</dd></div>
+        <div><dt>Timeline</dt><dd><span class="ph">[2 weeks, Fall 2026]</span></dd></div>
+        <div><dt>Tools</dt><dd>Figma, Google Sheets, HTML and JavaScript, Web Speech API</dd></div>
+      </dl>
+    </header>
+
+    <div class="tldr">
+      <div><h2>Problem</h2><p>Driver messages are often written like emails: polite, complete, and long. On a phone in a moving car, every extra word is more time with eyes off the road.</p></div>
+      <div><h2>What I made</h2><p>Four attention tiers, a seven-word glance budget, voice scripts, rules for when two messages arrive at once, and two playable tools: a glance test and a budget checker.</p></div>
+      <div><h2>How I'd measure it</h2><p>Comprehension at 1.5 seconds in testing. After launch: missed pickup changes, and how often drivers mute voice prompts.</p></div>
+    </div>
+
+    <nav class="toc" aria-label="On this page">
+      <span>On this page</span>
+      <a href="#cs4-play">Play first</a><a href="#cs4-process">Process</a><a href="#cs4-moments">Moments</a><a href="#cs4-tiers">Tiers</a><a href="#cs4-rules">Glance rules</a><a href="#cs4-lint">Budget checker</a><a href="#cs4-voice">Voice</a><a href="#cs4-queue">Priority</a><a href="#cs4-model">Content model</a><a href="#cs4-test">Testing</a>
+    </nav>
+
+    <section class="chapter" aria-labelledby="cs4-play">
+      <header><span class="key">case.glance.game</span><h2 id="cs4-play">Play first: can you read it in 1.5 seconds?</h2></header>
+      <div class="prose">
+        <p>You're driving. A message pops up on your mounted phone, then you look back at the road. Six rounds. Each round randomly shows either the <strong>original</strong> copy or my <strong>rewrite</strong>, and at the end you'll see which version you understood better.</p>
+      </div>
+      <div class="gg" id="gg">
+        <div class="gg-settings">
+          <fieldset>
+            <legend>Glance length</legend>
+            <label class="chip-radio"><input type="radio" name="gg-speed" value="1000"><span>1 s</span></label>
+            <label class="chip-radio"><input type="radio" name="gg-speed" value="1500" checked><span>1.5 s</span></label>
+            <label class="chip-radio"><input type="radio" name="gg-speed" value="2000"><span>2 s</span></label>
+          </fieldset>
+          <label class="gg-untimed"><input type="checkbox" id="gg-untimed"> No time limit (for screen readers)</label>
+        </div>
+        <div class="dash" id="gg-dash" aria-hidden="true">
+          <div class="phone" id="gg-phone">
+            <p class="p-status">Online · Finding rides</p>
+          </div>
+        </div>
+        <div class="gg-stage" id="gg-stage" aria-live="polite">
+          <h3>Ready to drive?</h3>
+          <p>The message appears for the glance length you picked, then disappears. Answer from memory, like you would with your eyes back on the road.</p>
+          <div><button class="btn" type="button" data-gg="start">Start driving</button></div>
+          <p class="note">This is a demo, not a study. With a no-time-limit mode, the message stays until you say you've read it.</p>
+        </div>
+      </div>
+      <p class="pullquote">At 50 km/h, a car travels about 28 metres in two seconds. Every word on that screen has to earn its place.</p>
+    </section>
+
+    <section class="chapter" aria-labelledby="cs4-process">
+      <header><span class="key">case.glance.process</span><h2 id="cs4-process">Process</h2></header>
+      <ol class="framework">
+        <li><strong>Research</strong><span>Read the NHTSA visual-manual distraction guidelines and studied how navigation apps word turn-by-turn prompts.</span></li>
+        <li><strong>Map</strong><span>Listed every message a driver gets during a trip and what the car is doing when it arrives.</span></li>
+        <li><strong>Tier</strong><span>Sorted messages into four attention tiers, from "hold until parked" to "interrupt everything".</span></li>
+        <li><strong>Budget</strong><span>Set word, time, and channel limits for each tier, plus rules for when messages collide.</span></li>
+        <li><strong>Write</strong><span>Rewrote six messages for screen, voice, and haptics, and wrote a spec so each one is a single content object.</span></li>
+        <li><strong>Prototype</strong><span>Built the glance test and a budget checker, and planned a test that never puts anyone behind a real wheel.</span></li>
+      </ol>
+    </section>
+
+    <section class="chapter" aria-labelledby="cs4-moments">
+      <header><span class="key">case.glance.moments</span><h2 id="cs4-moments">The same driver, six levels of attention</h2></header>
+      <div class="prose">
+        <p>NHTSA's guidelines for in-vehicle devices say a task shouldn't need any single glance longer than 2 seconds, or more than 12 seconds of glances in total. A phone app isn't a car dashboard, but I used the same limits as my ceiling.</p>
+        <p>The key insight: attention isn't a property of the driver. It changes minute by minute with what the car is doing. So the copy has to change too.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">Moment</th><th scope="col">Car</th><th scope="col">Eyes for reading</th><th scope="col">Hands</th><th scope="col">Best channel</th></tr></thead>
+          <tbody>
+            <tr><td>Online, waiting</td><td>Parked</td><td>Plenty</td><td>Free</td><td>Screen, full detail</td></tr>
+            <tr><td>Ride request arrives</td><td>Often moving</td><td>One glance</td><td>One tap</td><td>Glance card and a tone</td></tr>
+            <tr><td>Driving to pickup</td><td>Moving</td><td>Glances only</td><td>On the wheel</td><td>Voice, backed by a glance card</td></tr>
+            <tr><td>At pickup</td><td>Stopped, often in traffic</td><td>A few seconds</td><td>Briefly free</td><td>Screen</td></tr>
+            <tr><td>On trip</td><td>Moving, rider on board</td><td>Glances only</td><td>On the wheel</td><td>Quiet voice, glance card</td></tr>
+            <tr><td>Trip ended</td><td>Stopped</td><td>Plenty</td><td>Free</td><td>Screen, full detail</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="chapter" aria-labelledby="cs4-tiers">
+      <header><span class="key">case.glance.tiers</span><h2 id="cs4-tiers">Four attention tiers</h2></header>
+      <div class="prose"><p>Every driver message gets exactly one tier. The tier, not the writer's sense of urgency, decides how long the copy can be, which channels it uses, and whether it's allowed to interrupt.</p></div>
+      <div class="tiers">
+        <article class="tier t0">
+          <span class="eyebrow">Tier 0</span>
+          <h3>Hold</h3>
+          <p>Can wait until the car stops.</p>
+          <dl>
+            <div><dt>Examples</dt><dd>Earnings summary, a bonus reached, new features</dd></div>
+            <div><dt>Budget</dt><dd>Full sentences, shown only when stopped</dd></div>
+          </dl>
+        </article>
+        <article class="tier t1">
+          <span class="eyebrow">Tier 1</span>
+          <h3>Glance</h3>
+          <p>Good to know now. No action needed.</p>
+          <dl>
+            <div><dt>Examples</dt><dd>Rider is 2 minutes away</dd></div>
+            <div><dt>Budget</dt><dd>7 words, one fact, a soft tone at most</dd></div>
+          </dl>
+        </article>
+        <article class="tier t2">
+          <span class="eyebrow">Tier 2</span>
+          <h3>Act</h3>
+          <p>The driver has to do something while moving.</p>
+          <dl>
+            <div><dt>Examples</dt><dd>Pickup moved, stop added, road closed</dd></div>
+            <div><dt>Budget</dt><dd>7-word card, voice under 4 seconds, haptic</dd></div>
+          </dl>
+        </article>
+        <article class="tier t3">
+          <span class="eyebrow">Tier 3</span>
+          <h3>Safety</h3>
+          <p>Interrupts everything else.</p>
+          <dl>
+            <div><dt>Examples</dt><dd>Safety check-in after an unexpected long stop</dd></div>
+            <div><dt>Budget</dt><dd>Voice first, one message at a time</dd></div>
+          </dl>
+        </article>
+      </div>
+    </section>
+
+    <section class="chapter" aria-labelledby="cs4-rules">
+      <header><span class="key">case.glance.rules</span><h2 id="cs4-rules">Seven rules for glanceable copy</h2></header>
+      <ol class="rules prose">
+        <li><strong>Lead with the change.</strong> "Pickup moved", not "Your rider has updated their pickup location".</li>
+        <li><strong>One glance, one fact.</strong> Seven words at most. If it needs more, it's two messages, or it waits until the car stops.</li>
+        <li><strong>Digits, not words.</strong> "2 min" and "120 King St W" stand out in a scan. "Two minutes" blends in.</li>
+        <li><strong>No questions while moving.</strong> A question asks for a decision, and a decision means a second glance.</li>
+        <li><strong>Words drivers use.</strong> "Rider", not "passenger". "Stop", not "itinerary". Never "proceed accordingly".</li>
+        <li><strong>Calm, not loud.</strong> No capital letters or exclamation marks. Urgency comes from the tier (sound and haptics), not punctuation.</li>
+        <li><strong>Screen and voice say the same thing.</strong> If the voice says "stop added", the card says "Stop added", so a driver who hears it only has to confirm, not read.</li>
+      </ol>
+      <h3>Six rewrites</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">Moment</th><th scope="col">Original</th><th scope="col">Rewrite</th><th scope="col">Tier</th></tr></thead>
+          <tbody>
+            <tr><td>Pickup moved</td><td><q>Your rider has updated their pickup location. Please review the new location on the map and proceed accordingly.</q></td><td><strong>Pickup moved</strong><br>120 King St W</td><td>Act</td></tr>
+            <tr><td>Rider on the way</td><td><q>Your rider has indicated that they are on their way to the pickup location and should arrive shortly.</q></td><td><strong>Rider coming</strong><br>2 min away · Wait here</td><td>Glance</td></tr>
+            <tr><td>Road closure</td><td><q>Due to a road closure ahead, your route has been recalculated. An alternative route is now being provided.</q></td><td><strong>Road closed ahead</strong><br>Turn right on Bay</td><td>Act</td></tr>
+            <tr><td>Stop added</td><td><q>The passenger has requested that an additional stop be added to the current trip before the final destination.</q></td><td><strong>Stop added</strong><br>55 Bloor St W</td><td>Act</td></tr>
+            <tr><td>Ride request</td><td><q>A new ride request is available. Please accept within the allotted time to receive this trip.</q></td><td><strong>Ride request</strong><br>Pickup 4 min away</td><td>Glance</td></tr>
+            <tr><td>Confirm rider</td><td><q>For your safety and the safety of others, please make sure to verify the identity of your passenger before beginning the trip.</q></td><td><strong>Confirm rider: Priya</strong><br>Ask their name first</td><td>Glance (stopped)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="chapter" aria-labelledby="cs4-lint">
+      <header><span class="key">case.glance.budget_checker</span><h2 id="cs4-lint">Try it: the glance budget checker</h2></header>
+      <div class="prose">
+        <p>Rules in a doc get forgotten. Rules in a tool get followed. I turned six of the seven rules into a checker that runs as you type. Try one of the examples, or write your own driver message.</p>
+      </div>
+      <div class="lint">
+        <div class="lint-left">
+          <label for="lint-input">Driver message (title and body)</label>
+          <textarea id="lint-input" spellcheck="true">Your rider has updated their pickup location. Please review the new location on the map and proceed accordingly.</textarea>
+          <div class="lint-examples">
+            <span>Load:</span>
+            <button type="button" data-lint="Your rider has updated their pickup location. Please review the new location on the map and proceed accordingly.">Original</button>
+            <button type="button" data-lint="Pickup moved: 120 King St W">Rewrite</button>
+            <button type="button" data-lint="ATTENTION! Your rider will be there in two minutes. Can you wait?">Loud one</button>
+            <button type="button" data-lint="">Clear</button>
+          </div>
+          <p class="note">The checker assumes the car is moving (tiers 1 and 2). Rule 7, matching screen and voice, needs a person to review.</p>
+        </div>
+        <div class="lint-right">
+          <div class="lint-preview" aria-hidden="true">
+            <div class="phone is-alert" id="lint-phone"><p class="p-body"></p></div>
+          </div>
+          <p class="lint-score" id="lint-score" aria-live="polite"></p>
+          <ul class="lint-checks" id="lint-checks"></ul>
+        </div>
+      </div>
+      <h3>Where this goes next</h3>
+      <ul class="checklist">
+        <li>The same rules could run as a lint in a content tool like Ditto or a Figma plugin, flagging copy before it ships instead of after.</li>
+        <li>They also work as constraints for an AI drafting tool: "Tier 2, 7 words, lead with the change, digits." AI suggests, and a content designer approves.</li>
+        <li>The checker is about 60 lines of code. Clear rules are cheap to automate. Vague rules like "keep it short" aren't.</li>
+      </ul>
+    </section>
+
+    <section class="chapter" aria-labelledby="cs4-voice">
+      <header><span class="key">case.glance.voice</span><h2 id="cs4-voice">Writing for the ear</h2></header>
+      <div class="prose">
+        <p>For tier 2, the voice prompt does the work and the screen confirms it. Writing for text-to-speech is its own skill: the script is not the screen copy read aloud. Press play to hear each one (it uses your device's built-in voice).</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">Event</th><th scope="col">Screen</th><th scope="col">Voice script</th><th scope="col">Haptic</th><th scope="col"><span class="sr-only">Listen</span></th></tr></thead>
+          <tbody>
+            <tr><td>Pickup moved</td><td class="screen-cell"><strong>Pickup moved</strong><span>120 King St W</span></td><td>Pickup moved. New spot: 120 King Street West.</td><td>Two short</td><td><button class="say" type="button" data-say="Pickup moved. New spot: 120 King Street West." aria-label="Play voice prompt: Pickup moved">▶ Play</button></td></tr>
+            <tr><td>Stop added</td><td class="screen-cell"><strong>Stop added</strong><span>55 Bloor St W</span></td><td>Your rider added a stop: 55 Bloor Street West.</td><td>Two short</td><td><button class="say" type="button" data-say="Your rider added a stop: 55 Bloor Street West." aria-label="Play voice prompt: Stop added">▶ Play</button></td></tr>
+            <tr><td>Road closure</td><td class="screen-cell"><strong>Road closed ahead</strong><span>Turn right on Bay</span></td><td>Road closed ahead. In 200 metres, turn right on Bay Street.</td><td>One long</td><td><button class="say" type="button" data-say="Road closed ahead. In 200 metres, turn right on Bay Street." aria-label="Play voice prompt: Road closed ahead">▶ Play</button></td></tr>
+            <tr><td>Pickup moved (the "St" trap)</td><td class="screen-cell"><strong>Pickup moved</strong><span>300 St Clair Ave W</span></td><td>Pickup moved. New spot: 300 Saint Clair Avenue West.</td><td>Two short</td><td><button class="say" type="button" data-say="Pickup moved. New spot: 300 Saint Clair Avenue West." aria-label="Play voice prompt: Pickup moved to Saint Clair">▶ Play</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note" id="say-note" hidden>Your browser doesn't support text-to-speech, so the play buttons are hidden. The scripts above are what the voice would say.</p>
+      <ul class="rules prose">
+        <li><strong>Spell out the script.</strong> "St" is "Street" on King St but "Saint" on St Clair Ave. Text-to-speech has to guess, so the voice script is a separate field, written out in full.</li>
+        <li><strong>Distance, then action.</strong> "In 200 metres, turn right", the order drivers already know from navigation apps.</li>
+        <li><strong>"Right" means a direction.</strong> In a car, never write "right away" or "that's right". Use "now" or "yes".</li>
+        <li><strong>Under 4 seconds, about 10 words.</strong> Longer prompts overlap the next navigation instruction.</li>
+        <li><strong>One voice at a time.</strong> Prompts never talk over navigation. The next section covers how they wait their turn.</li>
+      </ul>
+    </section>
+
+    <section class="chapter" aria-labelledby="cs4-queue">
+      <header><span class="key">case.glance.priority</span><h2 id="cs4-queue">When three things happen at once</h2></header>
+      <div class="prose">
+        <p>Messages don't arrive politely one at a time. I wrote ordering rules so the system, not the driver, sorts them out:</p>
+        <ol>
+          <li>Higher tier goes first: Safety, then Act, then Glance. Hold messages wait for the car to stop.</li>
+          <li>A newer message about the same thing replaces the older one. Two pickup changes mean one card, with the latest spot.</li>
+          <li>Voice never interrupts a navigation instruction. It waits for the next gap.</li>
+        </ol>
+        <p>Here's a worked example. At 5:42 pm, on a trip, three events fire in the same second:</p>
+      </div>
+      <ol class="queue">
+        <li><span class="t">5:42:00</span><div><strong>Road closed ahead · Turn right on Bay</strong><span>Tier 2, Act. Spoken first because it changes what the driver does in the next 200 metres.</span></div></li>
+        <li><span class="t">5:42:06</span><div><strong>Stop added · 55 Bloor St W</strong><span>Tier 2, Act. Waits until the road closure prompt and the next turn instruction have finished.</span></div></li>
+        <li class="held"><span class="t">5:58</span><div><strong>You reached your weekly bonus</strong><span>Tier 0, Hold. Good news, but it can wait 16 minutes. It appears on the trip summary when the car stops.</span></div></li>
+      </ol>
+    </section>
+
+    <section class="chapter" aria-labelledby="cs4-model">
+      <header><span class="key">case.glance.content_model</span><h2 id="cs4-model">One message, every channel</h2></header>
+      <div class="prose">
+        <p>This builds on the content model from <a href="#content-system">One concept, every surface</a>. A driver message is one content object, and the glance card, voice script, haptic pattern, and parked version are variants of it. Change the address once and all four update.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">Field</th><th scope="col">Rule</th><th scope="col">Example: stop added</th></tr></thead>
+          <tbody>
+            <tr><td><code>message_key</code></td><td>Follows the string key convention from case study 1</td><td><code>driver.on_trip.stop_added.alert</code></td></tr>
+            <tr><td><code>tier</code></td><td>hold, glance, act, or safety. Required.</td><td>act</td></tr>
+            <tr><td><code>glance_title</code></td><td>3 words at most. Leads with the change.</td><td>Stop added</td></tr>
+            <tr><td><code>glance_detail</code></td><td>The one fact. Title and detail together: 7 words at most.</td><td><code>{stop_address}</code></td></tr>
+            <tr><td><code>voice_script</code></td><td>Under 4 seconds. Abbreviations written out.</td><td>Your rider added a stop: <code>{stop_address_spoken}</code>.</td></tr>
+            <tr><td><code>haptic</code></td><td>One of three patterns: one long, two short, three short (safety)</td><td>Two short</td></tr>
+            <tr><td><code>parked_detail</code></td><td>Full sentences. Shown when the car is stopped.</td><td>Your rider added a stop at 55 Bloor St W. Your earnings for this trip update automatically.</td></tr>
+            <tr><td><code>a11y_label</code></td><td>What a screen reader announces</td><td>Stop added: 55 Bloor Street West</td></tr>
+            <tr><td><code>replaces</code></td><td>Older messages this one cancels</td><td><code>driver.on_trip.stop_added.*</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="chapter" aria-labelledby="cs4-decisions">
+      <header><span class="key">case.glance.decisions</span><h2 id="cs4-decisions">Decisions and trade-offs</h2></header>
+      <div class="decisions">
+        <article>
+          <h3>Fragments while moving</h3>
+          <dl class="tradeoff">
+            <div><dt>Considered</dt><dd>Full, friendly sentences everywhere, to match the brand voice.</dd></div>
+            <div><dt>Chose</dt><dd>Fragments in tiers 1 and 2. Full sentences when the car is stopped.</dd></div>
+            <div><dt>Why</dt><dd>Warmth that costs a second isn't kind at 50 km/h. The voice stays friendly in the spoken prompts and the parked copy.</dd></div>
+          </dl>
+        </article>
+        <article>
+          <h3>Voice only when it matters</h3>
+          <dl class="tradeoff">
+            <div><dt>Considered</dt><dd>Reading every message aloud, since voice keeps eyes on the road.</dd></div>
+            <div><dt>Chose</dt><dd>Voice only for tiers 2 and 3.</dd></div>
+            <div><dt>Why</dt><dd>An app that talks all the time gets muted, and then the safety prompts are muted too. Fewer prompts keep each one meaningful.</dd></div>
+          </dl>
+        </article>
+        <article>
+          <h3>Holding good news</h3>
+          <dl class="tradeoff">
+            <div><dt>Considered</dt><dd>Showing everything right away and letting drivers dismiss it.</dd></div>
+            <div><dt>Chose</dt><dd>A Hold tier that waits until the car stops.</dd></div>
+            <div><dt>Why</dt><dd>Teams will want their message seen now, so the rule has to be clear. The trade-off: a bonus feels less exciting 16 minutes later. Safety wins.</dd></div>
+          </dl>
+        </article>
+      </div>
+    </section>
+
+    <section class="chapter" aria-labelledby="cs4-a11y">
+      <header><span class="key">case.glance.inclusion</span><h2 id="cs4-a11y">Accessible and inclusive</h2></header>
+      <ul class="checklist">
+        <li><strong>Voice is never the only channel.</strong> Drivers who are Deaf or hard of hearing get the same information from the glance card and haptics.</li>
+        <li><strong>Plain words help second-language readers.</strong> Short fragments with one consistent term for each thing ("Pickup", never "meeting point") are easier to read than long, polite sentences.</li>
+        <li><strong>Each locale gets its own budget.</strong> "Pickup moved" is 12 characters. A literal French version, "Point de prise en charge déplacé", is 32. Budgets are set in characters for each locale, and translators get a note explaining the tier.</li>
+        <li><strong>High contrast for sunlight.</strong> Glance cards aim for 7:1 contrast, above the usual 4.5:1, because phones on a dashboard face glare.</li>
+        <li><strong>Colour is never the only signal.</strong> Tier is shown by colour, icon, and haptic pattern together.</li>
+        <li><strong>The game practices what it preaches.</strong> The glance test has a no-time-limit mode, following WCAG's guideline that time limits should be adjustable.</li>
+      </ul>
+    </section>
+
+    <section class="chapter" aria-labelledby="cs4-test">
+      <header><span class="key">case.glance.test_plan</span><h2 id="cs4-test">Testing plan (with nobody driving)</h2></header>
+      <div class="prose"><p>You should never test distraction by causing it. Each step adds realism without putting anyone on a real road.</p></div>
+      <!-- TODO: Run step 1 with 5–8 people using the game above, and add the real accuracy numbers for original vs. rewrite here. -->
+      <ol class="path">
+        <li><span class="when">Step 1</span><h3>Flash test</h3><ul><li>8 people, laptop, the game above</li><li>12 messages, half original, half rewrite</li><li>Success: 90% or more correct on rewrites at 1.5 s</li></ul></li>
+        <li><span class="when">Step 2</span><h3>Parked car</h3><ul><li>Phone in a mount, road video playing</li><li>Glance only when a tone plays</li><li>Success: no glance over 2 s, measured on video</li></ul></li>
+        <li><span class="when">Step 3</span><h3>Voice check</h3><ul><li>Play prompts over road noise</li><li>Ask people to repeat the action</li><li>Success: right action on first listen</li></ul></li>
+        <li><span class="when">Step 4</span><h3>Simulator</h3><ul><li>With a research or safety team</li><li>Driving simulator, if one is available</li><li>Compare tiers on and off</li></ul></li>
+      </ol>
+    </section>
+
+    <section class="chapter" aria-labelledby="cs4-measure">
+      <header><span class="key">case.glance.metrics</span><h2 id="cs4-measure">How I'd measure success</h2></header>
+      <ul class="metrics">
+        <li><strong>Budget compliance</strong><span>Share of tier 1 and 2 strings that pass the checker. Run it on every new string.</span></li>
+        <li><strong>Missed changes</strong><span>Trips where the driver went to the old spot after a "Pickup moved" message.</span></li>
+        <li><strong>Pickup time after a change</strong><span>Time from "Pickup moved" to the rider getting in the car.</span></li>
+        <li><strong>Voice mutes</strong><span>How often drivers mute prompts. A rise means the app is talking too much.</span></li>
+      </ul>
+    </section>
+
+    <section class="chapter" aria-labelledby="cs4-learn">
+      <header><span class="key">case.glance.reflection</span><h2 id="cs4-learn">What I learned</h2></header>
+      <div class="reflect">
+        <div><h3>A hard limit makes decisions easier</h3><p>"Keep it short" starts arguments. "Seven words, lead with the change" ends them. A clear budget turned every edit from a matter of taste into a yes or no.</p></div>
+        <div><h3>Next: measure real glances</h3><p>My budgets come from published guidelines and my own estimates. Before calling them a standard, I'd run the parked-car test and partner with a safety team to check the numbers.</p></div>
+      </div>
+    </section>
+
+    <nav class="next-case" aria-label="Next case study">
+      <a class="back" href="#work">← All work</a>
       <div><span class="eyebrow">Next</span><br><a class="big" href="#content-system">One concept, every surface →</a></div>
     </nav>
   </div>
@@ -1684,7 +2154,7 @@ td a { white-space: nowrap; }
 
 <script>
 (function () {
-  /* ---------- Routing: one page, four views, plain #hash links ---------- */
+  /* ---------- Routing: one page, five views, plain #hash links ---------- */
   var views = Array.prototype.slice.call(document.querySelectorAll('[data-view]'));
   var names = views.map(function (v) { return v.getAttribute('data-view'); });
   var baseTitle = document.title;
@@ -1800,6 +2270,226 @@ td a { white-space: nowrap; }
     var f = feedback[picked.value];
     fb.innerHTML = '<div class="feedback ' + (f.ok ? 'right' : 'wrong') + '"><strong>' + f.head + '</strong><span>' + f.text + '</span></div>';
   });
+
+  /* ---------- Glance test (case study 4) ---------- */
+  var rounds = [
+    { moment: 'Driving to pickup',
+      before: { t: 'Location update', b: 'Your rider has updated their pickup location. Please review the new location on the map and proceed accordingly.' },
+      after: { t: 'Pickup moved', b: '120 King St W' },
+      q: 'What just changed?', options: ['The rider cancelled', 'The pickup spot moved', 'The rider is running late'], answer: 1,
+      why: 'The original hides the change inside “updated their pickup location” and ends with “proceed accordingly”, which tells the driver nothing. The rewrite leads with the change and gives the one fact needed.' },
+    { moment: 'Waiting at pickup',
+      before: { t: 'Rider status', b: 'Your rider has indicated that they are on their way to the pickup location and should arrive shortly.' },
+      after: { t: 'Rider coming', b: '2 min away · Wait here' },
+      q: 'What should you do?', options: ['Wait where you are', 'Call the rider', 'Cancel and find another ride'], answer: 0,
+      why: '“Should arrive shortly” makes the driver guess how long to wait. The rewrite gives a number as digits and the action in two words.' },
+    { moment: 'On trip',
+      before: { t: 'Navigation update', b: 'Due to a road closure ahead, your route has been recalculated. An alternative route is now being provided.' },
+      after: { t: 'Road closed ahead', b: 'Turn right on Bay' },
+      q: 'Why did your route change?', options: ['Your rider added a stop', 'Heavy traffic', 'A road is closed ahead'], answer: 2,
+      why: 'The original opens with “Due to”, so the reason and the result are buried mid-sentence. The rewrite puts the reason first and the next action second.' },
+    { moment: 'On trip',
+      before: { t: 'Trip itinerary modified', b: 'The passenger has requested that an additional stop be added to the current trip before the final destination.' },
+      after: { t: 'Stop added', b: '55 Bloor St W' },
+      q: 'What changed about the trip?', options: ['The destination changed', 'The rider added a stop', 'The trip ended early'], answer: 1,
+      why: '“Itinerary”, “passenger”, and “additional” are words drivers don’t use. The rewrite says “Stop added” and gives the address.' },
+    { moment: 'Online, driving',
+      before: { t: 'New trip opportunity', b: 'A new ride request is available. Please accept within the allotted time to receive this trip.' },
+      after: { t: 'Ride request', b: 'Pickup 4 min away' },
+      q: 'How far away is the pickup?', options: ['4 minutes', '14 minutes', 'It didn’t say'], answer: -1,
+      answerBy: { before: 2, after: 0 },
+      why: 'Trick question. The original never says how far away the rider is, so a driver has to tap in and read more. The rewrite puts the deciding fact on the card.' },
+    { moment: 'Stopped at pickup',
+      before: { t: 'Safety reminder', b: 'For your safety and the safety of others, please make sure to verify the identity of your passenger before beginning the trip.' },
+      after: { t: 'Confirm rider: Priya', b: 'Ask their name first' },
+      q: 'What should you do before starting the trip?', options: ['Check their rating', 'Confirm the rider’s name', 'Ask for their destination'], answer: 1,
+      why: '“Verify the identity” sounds like checking ID. The rewrite says exactly how: ask their name, and here is the name to listen for.' }
+  ];
+  var gg = document.getElementById('gg');
+  var ggStage = document.getElementById('gg-stage');
+  var ggDash = document.getElementById('gg-dash');
+  var ggPhone = document.getElementById('gg-phone');
+  var ggState = null;
+  var ggTimers = [];
+  var idleHTML = '<p class="p-status">Online · Finding rides</p>';
+
+  function ggClear() { ggTimers.forEach(clearTimeout); ggTimers = []; }
+  function ggLater(fn, ms) { ggTimers.push(setTimeout(fn, ms)); }
+  function shuffle(a) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function words(s) { return s.split(/\s+/).filter(function (w) { return /[A-Za-z0-9]/.test(w); }).length; }
+  function flashMs() { var r = gg.querySelector('input[name="gg-speed"]:checked'); return r ? parseInt(r.value, 10) : 1500; }
+  function untimed() { return document.getElementById('gg-untimed').checked; }
+  function correctIndex(item) { return item.r.answerBy ? item.r.answerBy[item.v] : item.r.answer; }
+  function focusIn(sel) { var el = ggStage.querySelector(sel); if (el) { el.focus({ preventScroll: true }); } }
+  function miniMsg(kind, m) {
+    var n = words(m.t + ' ' + m.b);
+    return '<div class="msg ' + kind + '"><span class="tag">' + (kind === 'before' ? 'Original' : 'Rewrite') + '</span>' +
+      '<p class="m-title">' + esc(m.t) + '</p><p class="m-body">' + esc(m.b) + '</p><p class="cc">' + n + ' words</p></div>';
+  }
+
+  function ggStart() {
+    ggClear();
+    var order = shuffle(rounds.slice());
+    var versions = shuffle(['before', 'before', 'before', 'after', 'after', 'after']);
+    ggState = { list: order.map(function (r, i) { return { r: r, v: versions[i] }; }), i: 0, score: { before: 0, after: 0 } };
+    ggRound();
+  }
+  function ggRound() {
+    var item = ggState.list[ggState.i];
+    ggPhone.className = 'phone';
+    ggPhone.innerHTML = idleHTML;
+    ggDash.classList.add('is-driving');
+    ggStage.innerHTML = '<p class="gg-status">Round ' + (ggState.i + 1) + ' of 6 · ' + esc(item.r.moment) + '</p>' +
+      '<h3 tabindex="-1">Eyes on the road…</h3><p>A message is coming.</p>';
+    focusIn('h3');
+    ggLater(ggShow, 1100);
+  }
+  function ggShow() {
+    var item = ggState.list[ggState.i];
+    var m = item.r[item.v];
+    ggPhone.className = 'phone is-alert';
+    ggPhone.innerHTML = '<p class="p-title">' + esc(m.t) + '</p><p class="p-body">' + esc(m.b) + '</p>';
+    if (untimed()) {
+      ggStage.innerHTML = '<p class="gg-status">Round ' + (ggState.i + 1) + ' of 6</p>' +
+        '<h3 tabindex="-1">Message: ' + esc(m.t) + '. ' + esc(m.b) + '</h3>' +
+        '<div><button class="btn" type="button" data-gg="hide">I’ve read it</button></div>';
+      focusIn('h3');
+    } else {
+      ggStage.innerHTML = '<p class="gg-status">Round ' + (ggState.i + 1) + ' of 6</p><h3>Glance now</h3>';
+      ggLater(ggAsk, flashMs());
+    }
+  }
+  function ggAsk() {
+    var item = ggState.list[ggState.i];
+    ggPhone.className = 'phone';
+    ggPhone.innerHTML = '<p class="p-hidden">Eyes back on the road</p>';
+    ggStage.innerHTML = '<p class="gg-status">Round ' + (ggState.i + 1) + ' of 6 · Answer from memory</p>' +
+      '<h3 tabindex="-1">' + esc(item.r.q) + '</h3><div class="gg-options">' +
+      item.r.options.map(function (o, i) { return '<button type="button" data-gg="answer" data-i="' + i + '">' + esc(o) + '</button>'; }).join('') +
+      '</div>';
+    focusIn('h3');
+  }
+  function ggAnswer(i) {
+    var item = ggState.list[ggState.i];
+    var right = correctIndex(item);
+    var ok = i === right;
+    if (ok) { ggState.score[item.v]++; }
+    ggDash.classList.remove('is-driving');
+    var saw = item.v === 'before' ? 'the <strong>original</strong> copy' : 'my <strong>rewrite</strong>';
+    var last = ggState.i === ggState.list.length - 1;
+    ggStage.innerHTML = '<div class="feedback ' + (ok ? 'right' : 'wrong') + '"><strong tabindex="-1">' + (ok ? 'Got it.' : 'Missed it.') + '</strong>' +
+      '<span>' + (ok ? '' : 'The answer was “' + esc(item.r.options[right]) + '”. ') + 'You saw ' + saw + '.</span></div>' +
+      '<div class="gg-mini">' + miniMsg('before', item.r.before) + miniMsg('after', item.r.after) + '</div>' +
+      '<p>' + esc(item.r.why) + '</p>' +
+      '<div><button class="btn" type="button" data-gg="' + (last ? 'results' : 'next') + '">' + (last ? 'See your results' : 'Next round') + '</button></div>';
+    focusIn('.feedback strong');
+  }
+  function ggResults() {
+    var s = ggState.score;
+    var verdict;
+    if (s.after > s.before) { verdict = 'You understood the rewrites better. Same moments, same information, fewer words.'; }
+    else if (s.after === s.before && s.after === 3) { verdict = 'A perfect run. Now imagine doing that with a rider talking and a cyclist on your right.'; }
+    else if (s.after === s.before) { verdict = 'A tie this time. Try the 1-second setting: the gap usually shows up as the glance gets shorter.'; }
+    else { verdict = 'The originals won this round. Random order matters with only 3 of each, which is exactly why a real test needs more people.'; }
+    ggPhone.className = 'phone';
+    ggPhone.innerHTML = '<p class="p-status">Trip complete</p>';
+    ggStage.innerHTML = '<h3 tabindex="-1">Your results</h3><div class="gg-score">' +
+      '<div class="gg-bar before"><span>Original copy</span><span class="track"><i style="width:' + (s.before / 3 * 100) + '%"></i></span><b>' + s.before + '/3</b></div>' +
+      '<div class="gg-bar after"><span>Rewrites</span><span class="track"><i style="width:' + (s.after / 3 * 100) + '%"></i></span><b>' + s.after + '/3</b></div>' +
+      '</div><p>' + verdict + '</p><div><button class="btn" type="button" data-gg="start">Play again</button></div>';
+    focusIn('h3');
+  }
+  gg.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-gg]');
+    if (!b) { return; }
+    var act = b.getAttribute('data-gg');
+    if (act === 'start') { ggStart(); }
+    else if (act === 'hide') { ggAsk(); }
+    else if (act === 'answer') { ggAnswer(parseInt(b.getAttribute('data-i'), 10)); }
+    else if (act === 'next') { ggState.i++; ggRound(); }
+    else if (act === 'results') { ggResults(); }
+  });
+  window.addEventListener('hashchange', function () {
+    if (!document.getElementById('glance').hidden) { return; }
+    ggClear(); ggDash.classList.remove('is-driving');
+  });
+
+  /* ---------- Glance budget checker ---------- */
+  var lintInput = document.getElementById('lint-input');
+  var lintPhone = document.getElementById('lint-phone');
+  var lintScore = document.getElementById('lint-score');
+  var lintChecks = document.getElementById('lint-checks');
+  var PREAMBLE = /^\s*(please|kindly|attention|reminder|note|just a|we |we've|due to|for your|a new|the passenger|the rider has|your rider has|you have been)/i;
+  var NUM_WORDS = /\b(one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|fifteen|twenty|thirty|forty|fifty|hundred)\b/gi;
+  var JARGON = ['proceed', 'accordingly', 'itinerary', 'utilize', 'allotted', 'indicated', 'recalculated', 'kindly', 'please', 'opportunity', 'passenger', 'prior to', 'in order to', 'modified', 'additional'];
+  var JARGON_RE = new RegExp('\\b(' + JARGON.join('|').replace(/ /g, '\\s+') + ')\\b', 'gi');
+  var SHOUT_RE = /\b[A-Z]{4,}\b|!/g;
+
+  function uniq(list) { return list.filter(function (x, i) { return list.indexOf(x) === i; }); }
+  function lint() {
+    var text = lintInput.value.trim();
+    var n = words(text);
+    var jargon = uniq((text.match(JARGON_RE) || []).map(function (s) { return s.toLowerCase(); }));
+    var nums = uniq((text.match(NUM_WORDS) || []).map(function (s) { return s.toLowerCase(); }));
+    var shouts = text.match(SHOUT_RE) || [];
+    var secs = (n / 5).toFixed(1);
+    var checks = [
+      { ok: n > 0 && n <= 7, label: 'Fits the glance budget: 7 words or fewer', detail: n + ' word' + (n === 1 ? '' : 's') + ', about ' + secs + ' s to read at a fast skim' },
+      { ok: n > 0 && !PREAMBLE.test(text), label: 'Leads with the change, not a preamble', detail: PREAMBLE.test(text) ? 'Starts with “' + text.match(PREAMBLE)[1].trim() + '”. Put the news first.' : '' },
+      { ok: jargon.length === 0, label: 'Uses words drivers use', detail: jargon.length ? 'Swap out: ' + jargon.join(', ') : '' },
+      { ok: nums.length === 0, label: 'Numbers as digits', detail: nums.length ? 'Write as digits: ' + nums.join(', ') : '' },
+      { ok: text.indexOf('?') === -1, label: 'No questions while moving', detail: text.indexOf('?') !== -1 ? 'A question needs a decision. Save it for when the car is stopped.' : '' },
+      { ok: shouts.length === 0, label: 'Calm: no ALL CAPS or exclamation marks', detail: shouts.length ? 'Let the tier’s sound and haptics carry urgency.' : '' }
+    ];
+    var passed = checks.filter(function (c) { return c.ok; }).length;
+    lintScore.textContent = text ? passed + ' of 6 checks pass' + (passed === 6 ? '. Ready for the road.' : '.') : 'Type a message to check it.';
+    lintChecks.innerHTML = text ? checks.map(function (c) {
+      return '<li class="' + (c.ok ? 'pass' : 'fail') + '"><span>' + esc(c.label) + (c.detail ? '<small>' + esc(c.detail) + '</small>' : '') + '</span></li>';
+    }).join('') : '';
+    var ranges = [];
+    [JARGON_RE, NUM_WORDS, SHOUT_RE].forEach(function (re) {
+      re.lastIndex = 0;
+      var m;
+      while ((m = re.exec(text))) { ranges.push([m.index, m.index + m[0].length]); }
+    });
+    ranges.sort(function (a, b) { return a[0] - b[0]; });
+    var html = '';
+    var lastIdx = 0;
+    ranges.forEach(function (r) {
+      if (r[0] < lastIdx) { return; }
+      html += esc(text.slice(lastIdx, r[0])) + '<mark>' + esc(text.slice(r[0], r[1])) + '</mark>';
+      lastIdx = r[1];
+    });
+    html += esc(text.slice(lastIdx));
+    lintPhone.innerHTML = '<p class="p-body" style="color:inherit">' + (html || '&nbsp;') + '</p>';
+  }
+  lintInput.addEventListener('input', lint);
+  document.querySelectorAll('[data-lint]').forEach(function (b) {
+    b.addEventListener('click', function () { lintInput.value = b.getAttribute('data-lint'); lint(); lintInput.focus(); });
+  });
+  lint();
+
+  /* ---------- Voice prompts ---------- */
+  var sayButtons = document.querySelectorAll('[data-say]');
+  if (!('speechSynthesis' in window) || typeof SpeechSynthesisUtterance === 'undefined') {
+    sayButtons.forEach(function (b) { b.hidden = true; });
+    document.getElementById('say-note').hidden = false;
+  } else {
+    sayButtons.forEach(function (b) {
+      b.setAttribute('aria-pressed', 'false');
+      b.addEventListener('click', function () {
+        try {
+          window.speechSynthesis.cancel();
+          sayButtons.forEach(function (o) { o.setAttribute('aria-pressed', 'false'); });
+          var u = new SpeechSynthesisUtterance(b.getAttribute('data-say'));
+          u.lang = 'en-CA';
+          u.onend = u.onerror = function () { b.setAttribute('aria-pressed', 'false'); };
+          b.setAttribute('aria-pressed', 'true');
+          window.speechSynthesis.speak(u);
+        } catch (err) { b.setAttribute('aria-pressed', 'false'); }
+      });
+    });
+  }
 
   /* ---------- Copy email ---------- */
   var copyBtn = document.getElementById('copy-email');
