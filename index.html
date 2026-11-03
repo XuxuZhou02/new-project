@@ -1,0 +1,1376 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Content Systems Portfolio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Content design portfolio: UX writing, information architecture, and learning experience design for people on the move.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Public+Sans:ital,wght@0,400..700;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a left-aligned reading column (~68ch) inside a 1120px frame. Every section is labelled
+   with the content key it would have in a string library, the portfolio's recurring detail. */
+:root {
+  --paper: #f4f5f8;
+  --surface: #ffffff;
+  --ink: #151a2d;
+  --muted: #565d73;
+  --line: #d9dce6;
+  --accent: #2f43cf;
+  --accent-ink: #ffffff;
+  --accent-soft: #e6e9fb;
+  --marker: #ffe45c;
+  --marker-ink: #151a2d;
+  --good: #1a7349;
+  --bad: #b02330;
+
+  --font-display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Public Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --step--1: 0.875rem;
+  --step-0: 1.0625rem;
+  --step-1: 1.25rem;
+  --step-2: 1.625rem;
+  --step-3: clamp(1.9rem, 1.4rem + 2vw, 2.6rem);
+  --step-4: clamp(2.4rem, 1.6rem + 3.6vw, 4.1rem);
+
+  --radius: 10px;
+  --frame: 1120px;
+  --read: 68ch;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0f121b;
+    --surface: #181c29;
+    --ink: #e9ebf2;
+    --muted: #a2a8ba;
+    --line: #2b3144;
+    --accent: #9ea9ff;
+    --accent-ink: #0f121b;
+    --accent-soft: #232a4a;
+    --marker: #5a4e12;
+    --marker-ink: #fff3b0;
+    --good: #66c895;
+    --bad: #ff8590;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0f121b;
+  --surface: #181c29;
+  --ink: #e9ebf2;
+  --muted: #a2a8ba;
+  --line: #2b3144;
+  --accent: #9ea9ff;
+  --accent-ink: #0f121b;
+  --accent-soft: #232a4a;
+  --marker: #5a4e12;
+  --marker-ink: #fff3b0;
+  --good: #66c895;
+  --bad: #ff8590;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px);
+  z-index: 10;
+  background: var(--paper);
+}
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+a { color: var(--accent); text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+  margin: 0;
+}
+p { margin: 0; }
+ul, ol { margin: 0; padding-left: 1.2em; }
+code, .mono { font-family: var(--font-mono); font-size: 0.86em; }
+mark { background: var(--marker); color: var(--marker-ink); padding: 0 0.15em; border-radius: 3px; }
+
+.skip {
+  position: absolute; left: 12px; top: -60px; z-index: 30;
+  background: var(--accent); color: var(--accent-ink);
+  padding: 10px 14px; border-radius: 8px; text-decoration: none;
+}
+.skip:focus { top: calc(12px + env(safe-area-inset-top, 0px)); }
+
+.frame {
+  max-width: var(--frame);
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+@media (min-width: 720px) {
+  .frame { padding-left: max(32px, env(safe-area-inset-left, 0px)); padding-right: max(32px, env(safe-area-inset-right, 0px)); }
+}
+
+/* ---------- Header ---------- */
+.site-header {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 20;
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+.site-header .frame {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding-block: 14px;
+}
+.brand { display: flex; flex-direction: column; text-decoration: none; color: var(--ink); line-height: 1.2; }
+.brand strong { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; }
+.brand span { font-size: var(--step--1); color: var(--muted); }
+.site-nav { display: flex; gap: 4px; flex-wrap: wrap; }
+.site-nav a {
+  text-decoration: none; color: var(--ink); font-size: 0.95rem; font-weight: 500;
+  padding: 6px 10px; border-radius: 999px;
+}
+.site-nav a:hover { background: var(--accent-soft); }
+
+/* ---------- Shared bits ---------- */
+.key {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--muted);
+  letter-spacing: 0.01em;
+  word-break: break-all;
+}
+.eyebrow {
+  font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent);
+}
+.tags { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; padding: 0; margin: 0; }
+.tags li {
+  font-size: 0.8rem; font-weight: 500; padding: 3px 10px; border-radius: 999px;
+  border: 1px solid var(--line); color: var(--muted); background: var(--surface);
+}
+.ph { background: var(--accent-soft); border-radius: 4px; padding: 0 4px; }
+.lede { font-size: var(--step-1); color: var(--muted); max-width: 60ch; line-height: 1.5; }
+.prose { max-width: var(--read); display: grid; gap: 1em; }
+.prose ul, .prose ol { display: grid; gap: 0.4em; }
+.note { font-size: var(--step--1); color: var(--muted); max-width: var(--read); }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font: 600 0.95rem/1 var(--font-body);
+  padding: 12px 18px; border-radius: 999px; border: 1px solid var(--accent);
+  background: var(--accent); color: var(--accent-ink); text-decoration: none; cursor: pointer;
+}
+.btn.ghost { background: transparent; color: var(--accent); }
+.btn:hover { filter: brightness(1.08); }
+
+/* ---------- Home ---------- */
+.hero { padding-block: clamp(48px, 9vw, 104px) clamp(40px, 6vw, 72px); display: grid; gap: 24px; }
+.hero h1 { font-size: var(--step-4); font-weight: 800; max-width: 17ch; letter-spacing: -0.025em; }
+.hero h1 .quiet { color: var(--muted); font-weight: 600; }
+.hero .lede { color: var(--ink); opacity: 0.86; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+.section { padding-block: clamp(40px, 6vw, 72px); border-top: 1px solid var(--line); }
+.section-head { display: grid; gap: 6px; margin-bottom: 28px; }
+.section-head h2 { font-size: var(--step-3); }
+
+.work-grid { display: grid; gap: 20px; grid-template-columns: 1fr; }
+@media (min-width: 900px) { .work-grid { grid-template-columns: repeat(3, 1fr); } }
+.work-card {
+  display: grid; grid-template-rows: auto 1fr; text-decoration: none; color: var(--ink);
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden;
+  transition: transform 0.18s ease, border-color 0.18s ease;
+}
+.work-card:hover { transform: translateY(-3px); border-color: var(--accent); }
+.work-card .specimen {
+  min-height: 168px; padding: 20px; background: var(--accent-soft);
+  display: flex; flex-direction: column; justify-content: center; gap: 10px; min-width: 0;
+}
+.work-card .body { padding: 20px; display: grid; gap: 12px; align-content: start; }
+.work-card h3 { font-size: var(--step-2); }
+.work-card p { color: var(--muted); }
+.work-card .more { font-weight: 600; color: var(--accent); }
+
+.spec-model { display: grid; gap: 6px; font-family: var(--font-mono); font-size: 0.78rem; }
+.spec-model .root { font-weight: 500; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; }
+.spec-model .kids { display: flex; flex-wrap: wrap; gap: 6px; padding-left: 14px; border-left: 2px solid var(--accent); }
+.spec-model .kids span { background: var(--surface); border-radius: 4px; padding: 2px 6px; }
+.spec-copy { display: grid; gap: 8px; font-size: 1rem; }
+.spec-copy s { color: var(--muted); }
+.spec-copy strong { font-family: var(--font-display); font-size: 1.25rem; }
+.spec-path { display: flex; align-items: center; gap: 0; font-size: 0.78rem; font-weight: 600; flex-wrap: wrap; row-gap: 10px; }
+.spec-path span { background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 4px 8px; }
+.spec-path i { width: 14px; height: 2px; background: var(--accent); display: inline-block; }
+
+.principles { display: grid; gap: 28px 40px; grid-template-columns: 1fr; }
+@media (min-width: 760px) { .principles { grid-template-columns: repeat(2, 1fr); } }
+.principles article { display: grid; gap: 8px; align-content: start; }
+.principles h3 { font-size: var(--step-1); }
+.principles p { color: var(--muted); max-width: 52ch; }
+
+.about { display: grid; gap: 32px; grid-template-columns: 1fr; }
+@media (min-width: 860px) { .about { grid-template-columns: 1.4fr 1fr; } }
+.about dl { display: grid; gap: 14px; margin: 0; align-content: start; }
+.about dt { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.about dd { margin: 2px 0 0; }
+
+.contact-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.copy-field {
+  display: inline-flex; align-items: center; gap: 8px; padding: 8px 8px 8px 14px;
+  border: 1px solid var(--line); background: var(--surface); border-radius: 999px; max-width: 100%;
+}
+.copy-field span { user-select: all; overflow-wrap: anywhere; }
+.copy-field button {
+  font: 600 0.85rem/1 var(--font-body); border: 0; border-radius: 999px; padding: 8px 12px; cursor: pointer;
+  background: var(--accent-soft); color: var(--ink);
+}
+
+.site-footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var(--muted); font-size: var(--step--1); }
+.site-footer .frame { display: grid; gap: 8px; }
+
+/* ---------- Case studies ---------- */
+.case-hero { padding-block: clamp(36px, 6vw, 72px) 32px; display: grid; gap: 20px; }
+.back { font-weight: 600; text-decoration: none; font-size: 0.95rem; }
+.back:hover { text-decoration: underline; }
+.case-hero h1 { font-size: var(--step-4); font-weight: 800; max-width: 18ch; letter-spacing: -0.025em; }
+.case-hero h1:focus { outline: none; }
+.meta {
+  display: grid; gap: 16px 28px; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  padding-block: 20px; border-block: 1px solid var(--line); margin: 8px 0 0;
+}
+.meta div { display: grid; gap: 2px; min-width: 0; }
+.meta dt { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.meta dd { margin: 0; font-size: 0.98rem; }
+
+.tldr {
+  display: grid; gap: 0; grid-template-columns: 1fr; border: 1px solid var(--line); border-radius: var(--radius);
+  background: var(--surface); overflow: hidden;
+}
+@media (min-width: 820px) { .tldr { grid-template-columns: repeat(3, 1fr); } }
+.tldr > div { padding: 20px; display: grid; gap: 6px; align-content: start; min-width: 0; }
+.tldr > div + div { border-top: 1px solid var(--line); }
+@media (min-width: 820px) { .tldr > div + div { border-top: 0; border-left: 1px solid var(--line); } }
+.tldr h2 { font-size: 0.8rem; font-family: var(--font-body); letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+
+.chapter { padding-block: clamp(36px, 5vw, 60px); border-top: 1px solid var(--line); display: grid; gap: 22px; }
+.chapter > header { display: grid; gap: 6px; }
+.chapter h2 { font-size: var(--step-3); max-width: 24ch; }
+.chapter h3 { font-size: var(--step-1); }
+
+.pullquote {
+  font-family: var(--font-display); font-weight: 600; font-size: var(--step-2); line-height: 1.25;
+  max-width: 32ch; padding-left: 20px; border-left: 4px solid var(--marker); text-wrap: balance;
+}
+
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 620px; font-size: 0.95rem; }
+th, td { text-align: left; vertical-align: top; padding: 12px 16px; border-bottom: 1px solid var(--line); }
+th { font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+tr:last-child td { border-bottom: 0; }
+td q { font-style: italic; }
+.flag { color: var(--bad); font-weight: 600; }
+
+/* Content model diagram */
+.model { display: grid; gap: 12px; grid-template-columns: 1fr; counter-reset: layer; }
+@media (min-width: 900px) { .model { grid-template-columns: repeat(4, 1fr); } }
+.layer {
+  position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 16px; display: grid; gap: 8px; align-content: start; min-width: 0;
+}
+.layer h3 { font-size: var(--step-1); }
+.layer p { font-size: 0.92rem; color: var(--muted); }
+.layer ul { font-size: 0.85rem; font-family: var(--font-mono); padding-left: 1em; display: grid; gap: 2px; }
+.layer.is-root { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.layer::after {
+  content: "↓"; position: absolute; left: 50%; bottom: -16px; transform: translateX(-50%);
+  color: var(--accent); font-weight: 700; background: var(--paper); line-height: 1; padding: 0 4px;
+}
+@media (min-width: 900px) {
+  .layer::after { content: "→"; left: auto; right: -13px; bottom: auto; top: 50%; transform: translateY(-50%); }
+}
+.layer:last-child::after { display: none; }
+
+/* Explorer */
+.explorer {
+  display: grid; gap: 20px; grid-template-columns: 1fr;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(16px, 3vw, 28px);
+}
+@media (min-width: 960px) { .explorer { grid-template-columns: 300px 1fr; } }
+.concept-card { display: grid; gap: 14px; align-content: start; min-width: 0; }
+.concept-card h3 { font-size: var(--step-2); }
+.concept-card dl { margin: 0; display: grid; gap: 10px; font-size: 0.92rem; }
+.concept-card dt { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.concept-card dd { margin: 2px 0 0; }
+.facts { display: grid; gap: 12px; padding: 14px; border-radius: 8px; background: var(--accent-soft); }
+.facts p { font-size: 0.85rem; }
+.field { display: grid; gap: 4px; }
+.field label { font-size: 0.85rem; font-weight: 600; }
+.field select {
+  font: 500 1rem var(--font-body); padding: 8px 10px; border-radius: 8px; border: 1px solid var(--line);
+  background: var(--surface); color: var(--ink);
+}
+.variants { display: grid; gap: 12px; grid-template-columns: 1fr; min-width: 0; }
+@media (min-width: 640px) { .variants { grid-template-columns: repeat(2, 1fr); } }
+.variant { border: 1px solid var(--line); border-radius: 8px; padding: 14px; display: grid; gap: 8px; align-content: start; min-width: 0; background: var(--paper); }
+.variant .surface { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); }
+.variant .v-title { font-weight: 700; }
+.variant .v-body { font-size: 0.95rem; }
+.variant mark { transition: background-color 0.5s ease; }
+.variant mark.changed { background: var(--accent); color: var(--accent-ink); }
+
+/* Key anatomy */
+.anatomy { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
+.anatomy-row { display: flex; gap: 2px; font-family: var(--font-mono); font-size: 0.95rem; min-width: max-content; }
+.anatomy-row > span { display: grid; gap: 6px; }
+.anatomy-row b { font-weight: 500; padding: 6px 8px; border-radius: 6px; background: var(--accent-soft); }
+.anatomy-row small { font-family: var(--font-body); font-size: 0.75rem; color: var(--muted); padding-left: 8px; }
+.anatomy-row .dot { align-self: start; padding: 6px 0; color: var(--muted); }
+.key-compare { display: grid; gap: 10px; margin-top: 18px; font-family: var(--font-mono); font-size: 0.9rem; }
+.key-compare div { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; }
+.key-compare .lbl { font-family: var(--font-body); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; width: 4.5em; }
+.key-compare .lbl.bad { color: var(--bad); }
+.key-compare .lbl.good { color: var(--good); }
+.key-compare code { word-break: break-all; }
+
+/* Two-column compare (workflow) */
+.compare { display: grid; gap: 16px; grid-template-columns: 1fr; }
+@media (min-width: 820px) { .compare { grid-template-columns: 1fr 1fr; } }
+.compare > section { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; display: grid; gap: 12px; align-content: start; min-width: 0; }
+.compare h3 { font-size: var(--step-1); }
+.compare ol { display: grid; gap: 10px; }
+.compare li::marker { font-family: var(--font-mono); color: var(--muted); }
+.compare .owner { display: block; font-size: 0.8rem; color: var(--muted); }
+.label-bad { color: var(--bad); }
+.label-good { color: var(--good); }
+
+.facets { display: grid; gap: 12px; grid-template-columns: 1fr; }
+@media (min-width: 760px) { .facets { grid-template-columns: repeat(3, 1fr); } }
+.facet { border-top: 3px solid var(--accent); padding-top: 12px; display: grid; gap: 8px; align-content: start; }
+.facet h3 { font-size: var(--step-1); }
+.facet ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.facet li { font-size: 0.85rem; padding: 3px 10px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); }
+
+.metrics { display: grid; gap: 12px; grid-template-columns: 1fr; list-style: none; padding: 0; }
+@media (min-width: 760px) { .metrics { grid-template-columns: repeat(2, 1fr); } }
+.metrics li { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; display: grid; gap: 4px; }
+.metrics strong { font-family: var(--font-display); font-size: 1.1rem; }
+.metrics span { color: var(--muted); font-size: 0.95rem; }
+
+/* Rewrites */
+.framework { display: grid; gap: 12px; grid-template-columns: 1fr; list-style: none; padding: 0; counter-reset: q; }
+@media (min-width: 760px) { .framework { grid-template-columns: repeat(3, 1fr); } }
+.framework li { counter-increment: q; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; display: grid; gap: 6px; align-content: start; }
+.framework li::before { content: counter(q); font-family: var(--font-display); font-weight: 800; font-size: 1.6rem; color: var(--accent); line-height: 1; }
+.framework strong { font-family: var(--font-display); font-size: var(--step-1); }
+.framework span { color: var(--muted); font-size: 0.95rem; }
+
+.rules { display: grid; gap: 10px; }
+.rules li { padding-left: 4px; }
+
+.rewrite { display: grid; gap: 14px; padding-block: 24px; border-top: 1px dashed var(--line); }
+.rewrite:first-of-type { border-top: 0; padding-top: 0; }
+.rewrite > header { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline; }
+.rewrite h3 { font-size: var(--step-2); }
+.rewrite .where { font-size: 0.85rem; color: var(--muted); }
+.pair { display: grid; gap: 12px; grid-template-columns: 1fr; }
+@media (min-width: 820px) { .pair { grid-template-columns: 1fr 1fr; } }
+.msg {
+  border-radius: 14px; padding: 16px; display: grid; gap: 6px; align-content: start; min-width: 0;
+  background: var(--surface); border: 1px solid var(--line);
+}
+.msg .tag { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; display: flex; align-items: center; gap: 6px; }
+.msg.before .tag { color: var(--bad); }
+.msg.after .tag { color: var(--good); }
+.msg.before { border-style: dashed; }
+.msg.before .m-title, .msg.before .m-body { color: var(--muted); }
+.msg.after { border-color: var(--good); }
+.m-title { font-weight: 700; font-size: 1.05rem; }
+.m-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.m-actions span { font-size: 0.85rem; font-weight: 600; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); }
+.m-actions span:first-child { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.cc { font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
+.cc .over { color: var(--bad); font-weight: 600; }
+.why { max-width: var(--read); display: grid; gap: 6px; font-size: 0.97rem; }
+.why li::marker { color: var(--accent); }
+
+.tone { display: grid; gap: 12px; grid-template-columns: 1fr; }
+@media (min-width: 820px) { .tone { grid-template-columns: repeat(3, 1fr); } }
+.tone > div { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; display: grid; gap: 8px; align-content: start; }
+.tone h3 { font-size: var(--step-1); }
+.tone .meter { height: 6px; border-radius: 999px; background: var(--line); overflow: hidden; }
+.tone .meter i { display: block; height: 100%; background: var(--accent); }
+.tone p { font-size: 0.95rem; color: var(--muted); }
+.tone blockquote { margin: 4px 0 0; font-weight: 600; }
+
+.checklist { list-style: none; padding: 0; display: grid; gap: 12px; max-width: var(--read); }
+.checklist li { display: grid; grid-template-columns: 24px 1fr; gap: 10px; }
+.checklist li::before {
+  content: "✓"; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--accent-soft); color: var(--accent); font-weight: 700; font-size: 0.8rem;
+}
+
+/* Learning path */
+.path { list-style: none; padding: 0; display: grid; gap: 0; grid-template-columns: 1fr; }
+@media (min-width: 900px) { .path { grid-template-columns: repeat(4, 1fr); } }
+.path > li { position: relative; padding: 0 0 24px 32px; display: grid; gap: 8px; align-content: start; min-width: 0; }
+.path > li::before {
+  content: ""; position: absolute; left: 6px; top: 6px; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--paper); border: 3px solid var(--accent); z-index: 1;
+}
+.path > li::after { content: ""; position: absolute; left: 12px; top: 10px; bottom: 0; width: 3px; background: var(--accent); opacity: 0.35; }
+.path > li:last-child::after { display: none; }
+@media (min-width: 900px) {
+  .path > li { padding: 32px 18px 0 0; }
+  .path > li::before { left: 0; top: 0; }
+  .path > li::after { left: 10px; right: 0; top: 6px; bottom: auto; width: auto; height: 3px; }
+}
+.path h3 { font-size: var(--step-1); }
+.path .when { font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); }
+.path ul { font-size: 0.93rem; display: grid; gap: 4px; }
+
+.storyboard { display: grid; gap: 12px; grid-template-columns: 1fr; list-style: none; padding: 0; }
+@media (min-width: 640px) { .storyboard { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1000px) { .storyboard { grid-template-columns: repeat(4, 1fr); } }
+.storyboard li { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; display: grid; gap: 8px; align-content: start; }
+.storyboard .frame-no { font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); }
+.storyboard h3 { font-size: var(--step-1); }
+.storyboard .screen { background: var(--paper); border-radius: 8px; padding: 12px; font-size: 0.93rem; display: grid; gap: 6px; }
+.storyboard .screen strong { font-family: var(--font-display); }
+.storyboard .design-note { font-size: 0.85rem; color: var(--muted); }
+
+.quiz { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(16px, 3vw, 28px); display: grid; gap: 16px; max-width: 760px; }
+.quiz fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; }
+.quiz legend { font-family: var(--font-display); font-weight: 700; font-size: var(--step-1); line-height: 1.3; margin-bottom: 10px; }
+.option { display: grid; grid-template-columns: 22px 1fr; gap: 10px; align-items: start; padding: 12px 14px; border: 1px solid var(--line); border-radius: 8px; cursor: pointer; background: var(--paper); }
+.option:hover { border-color: var(--accent); }
+.option input { margin: 4px 0 0; accent-color: var(--accent); width: 18px; height: 18px; }
+.option:has(input:checked) { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.feedback { border-radius: 8px; padding: 14px 16px; display: grid; gap: 4px; background: var(--accent-soft); }
+.feedback strong { font-family: var(--font-display); font-size: 1.05rem; }
+.feedback.right strong { color: var(--good); }
+.feedback.wrong strong { color: var(--bad); }
+
+.reflect { display: grid; gap: 16px; grid-template-columns: 1fr; }
+@media (min-width: 820px) { .reflect { grid-template-columns: 1fr 1fr; } }
+.reflect > div { display: grid; gap: 8px; align-content: start; }
+.reflect h3 { font-size: var(--step-1); }
+
+.next-case {
+  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px;
+  padding-block: 32px 56px; border-top: 1px solid var(--line);
+}
+.next-case a.big { font-family: var(--font-display); font-weight: 700; font-size: var(--step-2); text-decoration: none; }
+.next-case a.big:hover { text-decoration: underline; }
+
+.disclaimer {
+  font-size: 0.9rem; color: var(--muted); padding: 12px 14px; border-radius: 8px; border: 1px dashed var(--line); max-width: var(--read);
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="frame">
+    <a class="brand" href="#home" aria-label="Home">
+      <strong>[Your Name]</strong>
+      <span>Content designer</span>
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <a href="#work">Work</a>
+      <a href="#approach">Approach</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- =========================================================
+     HOME
+     ========================================================= -->
+<div data-view="home" id="home">
+  <section class="hero frame" aria-labelledby="hero-title">
+    <span class="key">portfolio.home.hero.title</span>
+    <h1 id="hero-title">Clear words for people on the move. <span class="quiet">Connected systems behind them.</span></h1>
+    <p class="lede">I'm <span class="ph">[Your Name]</span>, a <span class="ph">[program]</span> student at <span class="ph">[university]</span>. I write in-product copy, organize content so it stays consistent from the app to the help center, and design learning that shows up at the moment someone needs it.</p>
+    <div class="hero-actions">
+      <a class="btn" href="#work">See case studies</a>
+      <a class="btn ghost" href="#contact">Get in touch</a>
+    </div>
+  </section>
+
+  <section class="section" id="work" aria-labelledby="work-title">
+    <div class="frame">
+      <div class="section-head">
+        <span class="key">portfolio.home.work.title</span>
+        <h2 id="work-title">Selected work</h2>
+        <p class="note">Three self-initiated case studies, one for each part of content systems work: information architecture, UX writing, and learning experience design. All three use the same rideshare scenario, so you can see how one concept travels across surfaces.</p>
+      </div>
+      <div class="work-grid">
+        <a class="work-card" href="#content-system">
+          <div class="specimen" aria-hidden="true">
+            <div class="spec-model">
+              <div class="root">concept: cancellation_fee</div>
+              <div class="kids"><span>ui</span><span>push</span><span>receipt</span><span>help</span><span>learning</span><span>support</span></div>
+            </div>
+          </div>
+          <div class="body">
+            <ul class="tags" aria-label="Skills"><li>Information architecture</li><li>Content modeling</li><li>Workflow</li></ul>
+            <h3>One concept, every surface</h3>
+            <p>A content model that lets one policy change update the app, notifications, help center, and driver training together.</p>
+            <span class="more">Read case study →</span>
+          </div>
+        </a>
+        <a class="work-card" href="#error-states">
+          <div class="specimen" aria-hidden="true">
+            <div class="spec-copy">
+              <s>Error: Transaction failed (code 402).</s>
+              <strong>Your card was declined</strong>
+              <span>Choose another card to request your ride.</span>
+            </div>
+          </div>
+          <div class="body">
+            <ul class="tags" aria-label="Skills"><li>UX writing</li><li>Errors &amp; notifications</li><li>Accessibility</li></ul>
+            <h3>When the ride doesn't go to plan</h3>
+            <p>Rewriting six stressful moments so riders know what happened, what it means for them, and what to do next.</p>
+            <span class="more">Read case study →</span>
+          </div>
+        </a>
+        <a class="work-card" href="#driver-learning">
+          <div class="specimen" aria-hidden="true">
+            <div class="spec-path">
+              <span>Before you drive</span><i></i><span>Trip 1</span><i></i><span>Trips 2–10</span><i></i><span>Week 1</span>
+            </div>
+          </div>
+          <div class="body">
+            <ul class="tags" aria-label="Skills"><li>Learning experience design</li><li>Onboarding</li><li>Microlearning</li></ul>
+            <h3>Ready for trip one</h3>
+            <p>A just-in-time learning path that teaches new drivers each skill right before they need it, not a week before.</p>
+            <span class="more">Read case study →</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="approach" aria-labelledby="approach-title">
+    <div class="frame">
+      <div class="section-head">
+        <span class="key">portfolio.home.approach.title</span>
+        <h2 id="approach-title">How I work</h2>
+      </div>
+      <div class="principles">
+        <article>
+          <h3>Start from the person's moment</h3>
+          <p>Where are they, what are they doing, and how much attention do they have? A rider on a dark curb reads differently from a driver parked between trips.</p>
+        </article>
+        <article>
+          <h3>Name it once</h3>
+          <p>Every concept gets one name and one definition. The UI, help center, and training borrow it, so people never have to wonder whether two words mean the same thing.</p>
+        </article>
+        <article>
+          <h3>Write for the hardest case</h3>
+          <p>Copy should still work for someone who is late, stressed, using a screen reader, or reading in their second language. If it works there, it works everywhere.</p>
+        </article>
+        <article>
+          <h3>Decide how to measure before writing</h3>
+          <p>Fewer support contacts, faster recovery from errors, more new drivers reaching their first trip. Content is a product decision, so I tie it to a result.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="about" aria-labelledby="about-title">
+    <div class="frame about">
+      <div class="prose">
+        <span class="key">portfolio.home.about.title</span>
+        <h2 id="about-title" style="font-size: var(--step-3)">About me</h2>
+        <!-- TODO: Rewrite this in your own voice. Keep it to 3 short paragraphs. -->
+        <p>I came to content design through <span class="ph">[your path: e.g. writing for the campus paper, tutoring, research in psychology]</span>. What I like most is the moment a confusing process becomes obvious because the words finally match how people think about it.</p>
+        <p>I'm interested in the space where UX writing, information architecture, and learning design meet: making sure what someone reads in the app, finds in the help center, and learns in training all tell the same story.</p>
+        <p>I'm looking for a Summer 2027 content design internship in Toronto, where I can learn from experienced content designers and contribute to a real content system.</p>
+      </div>
+      <dl>
+        <div><dt>Studying</dt><dd><span class="ph">[Degree, program]</span><br><span class="ph">[University]</span></dd></div>
+        <div><dt>Graduating</dt><dd><span class="ph">[Month 2028]</span></dd></div>
+        <div><dt>Based in</dt><dd>Toronto, ON</dd></div>
+        <!-- TODO: Keep only tools you have actually used. -->
+        <div><dt>Tools</dt><dd>Figma, Google Workspace, Airtable for content inventories, Hemingway Editor, WCAG 2.2 guidelines</dd></div>
+        <div><dt>Languages</dt><dd><span class="ph">[e.g. English, Mandarin]</span></dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="section" id="contact" aria-labelledby="contact-title">
+    <div class="frame" style="display:grid; gap:16px">
+      <span class="key">portfolio.home.contact.title</span>
+      <h2 id="contact-title" style="font-size: var(--step-3)">Let's talk</h2>
+      <p class="note">I'm happy to walk through any of these projects, including the drafts that didn't make it.</p>
+      <div class="contact-row">
+        <div class="copy-field">
+          <span id="email-text">[your.email@example.com]</span>
+          <button type="button" id="copy-email">Copy email</button>
+        </div>
+        <a class="btn ghost" href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+      <p class="note" id="copy-status" aria-live="polite"></p>
+    </div>
+  </section>
+</div>
+
+<!-- =========================================================
+     CASE STUDY 1 — Information architecture
+     ========================================================= -->
+<article data-view="content-system" id="content-system" aria-labelledby="cs1-title">
+  <div class="frame">
+    <header class="case-hero">
+      <a class="back" href="#work">← All work</a>
+      <span class="key">case.content_system.title</span>
+      <ul class="tags" aria-label="Skills"><li>Information architecture</li><li>Content modeling</li><li>Taxonomy</li><li>Publishing workflow</li></ul>
+      <h1 id="cs1-title" tabindex="-1">One concept, every surface</h1>
+      <p class="lede">A content model for a rideshare app that treats each concept, like a cancellation fee, as one connected object. When the policy changes, every surface that mentions it can change together.</p>
+      <dl class="meta">
+        <div><dt>Role</dt><dd>Content designer and information architect (solo)</dd></div>
+        <div><dt>Type</dt><dd>Self-initiated concept project</dd></div>
+        <div><dt>Timeline</dt><dd><span class="ph">[3 weeks, Fall 2026]</span></dd></div>
+        <div><dt>Tools</dt><dd>Figma, Airtable, Google Sheets</dd></div>
+      </dl>
+    </header>
+
+    <div class="tldr">
+      <div><h2>Problem</h2><p>One policy shows up in six places, written by six teams. When it changes, some places get missed and people see conflicting information.</p></div>
+      <div><h2>What I made</h2><p>A four-layer content model, a faceted taxonomy, a naming convention for string keys, and a publishing workflow built around them.</p></div>
+      <div><h2>How I'd measure it</h2><p>Time from a policy change to every surface updated, and support contacts about that topic in the weeks after.</p></div>
+    </div>
+
+    <section class="chapter" aria-labelledby="cs1-problem">
+      <header><span class="key">case.content_system.problem</span><h2 id="cs1-problem">A single policy lives in many places</h2></header>
+      <div class="prose">
+        <p>A rider cancels after their driver has already started driving to them. In a typical rideshare product, that moment touches a confirmation sheet, a push notification, a receipt line, a help center article, a driver training module, and the scripts support agents use.</p>
+        <p>Each of these is usually owned by a different team and stored in a different tool. Nothing connects them except the people who remember they exist. So when the policy changes, someone has to search for every mention by hand.</p>
+      </div>
+      <h3>Audit: one concept, four names</h3>
+      <p class="note">I mapped how a single concept could drift across surfaces. These strings are written for this case study to show common patterns. They are not quotes from a real product.</p>
+      <!-- TODO: For extra credibility, run a real audit on a public app/help center you use and replace this table with your findings (screenshots + notes). -->
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">Surface</th><th scope="col">What it says</th><th scope="col">Issue</th></tr></thead>
+          <tbody>
+            <tr><td>Confirmation sheet</td><td><q>A fee may apply.</q></td><td><span class="flag">Vague.</span> Doesn't say when or how much.</td></tr>
+            <tr><td>Push notification</td><td><q>You were charged a late cancel fee.</q></td><td><span class="flag">New name.</span> "Late cancel fee" appears nowhere else.</td></tr>
+            <tr><td>Help article</td><td><q>Riders who cancel after 5 minutes may be charged.</q></td><td><span class="flag">Outdated.</span> The current rule is 2 minutes.</td></tr>
+            <tr><td>Driver training</td><td><q>You'll receive a cancellation payment.</q></td><td><span class="flag">Third name.</span> Drivers and riders can't compare notes.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="pullquote">The problem wasn't any single string. There was no shared source for what a cancellation fee is, so every writer had to work it out again.</p>
+    </section>
+
+    <section class="chapter" aria-labelledby="cs1-model">
+      <header><span class="key">case.content_system.model</span><h2 id="cs1-model">A content model in four layers</h2></header>
+      <div class="prose">
+        <p>I separated <em>what is true</em> from <em>how we say it</em> and <em>where we say it</em>. Policy facts live in one place. Surface copy references them instead of retyping them.</p>
+      </div>
+      <div class="model">
+        <div class="layer is-root">
+          <span class="eyebrow">Layer 1</span>
+          <h3>Concept</h3>
+          <p>The single source for what something is and who owns it.</p>
+          <ul><li>canonical_name</li><li>definition</li><li>audience</li><li>policy_owner</li><li>review_date</li></ul>
+        </div>
+        <div class="layer">
+          <span class="eyebrow">Layer 2</span>
+          <h3>Facts</h3>
+          <p>Values that come from policy or config. Nobody types them by hand.</p>
+          <ul><li>{fee_amount}</li><li>{grace_period}</li></ul>
+        </div>
+        <div class="layer">
+          <span class="eyebrow">Layer 3</span>
+          <h3>Variants</h3>
+          <p>Copy written for each surface, with its own length limit and tone.</p>
+          <ul><li>ui.confirm_sheet</li><li>push</li><li>receipt</li><li>help.article</li><li>learning.lesson</li><li>support.macro</li></ul>
+        </div>
+        <div class="layer">
+          <span class="eyebrow">Layer 4</span>
+          <h3>Placements</h3>
+          <p>Where and when a variant appears: a screen, a trigger, an article ID.</p>
+          <ul><li>screen_id</li><li>trigger_event</li><li>locale</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter" aria-labelledby="cs1-try">
+      <header><span class="key">case.content_system.explorer</span><h2 id="cs1-try">Try it: change the policy once</h2></header>
+      <p class="note">Change a fact on the left. Every variant that references it updates, and the changed values are highlighted. Variants that don't use a fact stay the same.</p>
+      <div class="explorer">
+        <div class="concept-card">
+          <span class="key">concept: cancellation_fee</span>
+          <h3>Cancellation fee</h3>
+          <dl>
+            <div><dt>Definition</dt><dd>A fee charged when a rider cancels after their driver has been on the way for longer than the grace period. It pays the driver for their time.</dd></div>
+            <div><dt>Audience</dt><dd>Riders, drivers, support agents</dd></div>
+            <div><dt>Owner</dt><dd>Rider payments policy team</dd></div>
+            <div><dt>Never call it</dt><dd>late cancel fee, cancellation payment, penalty</dd></div>
+          </dl>
+          <div class="facts">
+            <p><strong>Facts</strong> (example values)</p>
+            <div class="field">
+              <label for="fact-fee">Fee amount</label>
+              <select id="fact-fee">
+                <option value="$5.00" selected>$5.00</option>
+                <option value="$6.50">$6.50</option>
+                <option value="$8.00">$8.00</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="fact-grace">Grace period</label>
+              <select id="fact-grace">
+                <option value="2" selected>2 minutes</option>
+                <option value="3">3 minutes</option>
+                <option value="5">5 minutes</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="variants" id="variants" aria-live="polite">
+          <!-- Rendered from templates below; static fallback mirrors the defaults. -->
+          <div class="variant"><span class="surface">In-app sheet · rider</span><span class="key">rider.pickup.cancel_fee.confirm_sheet</span><p class="v-title">Cancel this ride?</p><p class="v-body">Your driver has been on the way for more than <mark>2</mark> minutes. If you cancel now, you'll be charged a <mark>$5.00</mark> cancellation fee.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter" aria-labelledby="cs1-tax">
+      <header><span class="key">case.content_system.taxonomy</span><h2 id="cs1-tax">Facets instead of folders</h2></header>
+      <div class="prose">
+        <p>A help article about cancellation fees belongs under <em>Payments</em> and under <em>Pickup</em>. Folders force one home. Facets let the same object be found from both, by writers in the content library and by riders in the help center.</p>
+      </div>
+      <div class="facets">
+        <div class="facet"><h3>Audience</h3><ul><li>Rider</li><li>Driver</li><li>Both</li><li>Support agent</li></ul></div>
+        <div class="facet"><h3>Journey stage</h3><ul><li>Request</li><li>Pickup</li><li>On trip</li><li>After trip</li><li>Account &amp; payments</li></ul></div>
+        <div class="facet"><h3>Content type</h3><ul><li>UI string</li><li>Notification</li><li>Email</li><li>Help article</li><li>Learning module</li><li>Support macro</li></ul></div>
+      </div>
+    </section>
+
+    <section class="chapter" aria-labelledby="cs1-keys">
+      <header><span class="key">case.content_system.naming</span><h2 id="cs1-keys">A naming convention people can read</h2></header>
+      <div class="prose">
+        <p>String keys are the address of every piece of copy. A key that describes its location and purpose makes strings searchable, keeps duplicates out, and tells translators where the words will appear.</p>
+      </div>
+      <div class="anatomy">
+        <div class="anatomy-row" aria-label="rider.pickup.cancel_fee.confirm_sheet.body">
+          <span><b>rider</b><small>audience</small></span><span class="dot">.</span>
+          <span><b>pickup</b><small>stage</small></span><span class="dot">.</span>
+          <span><b>cancel_fee</b><small>concept ID</small></span><span class="dot">.</span>
+          <span><b>confirm_sheet</b><small>component</small></span><span class="dot">.</span>
+          <span><b>body</b><small>element</small></span>
+        </div>
+        <div class="key-compare">
+          <div><span class="lbl bad">Before</span><code>cancelPopupTxt2</code></div>
+          <div><span class="lbl good">After</span><code>rider.pickup.cancel_fee.confirm_sheet.body</code></div>
+        </div>
+      </div>
+      <ul class="rules prose">
+        <li>Lowercase, with dots between levels and underscores inside a level.</li>
+        <li>The concept segment always matches a concept ID, so every string links back to its source.</li>
+        <li>Keys describe purpose, never the words on screen. <code>btn_ok</code> breaks as soon as the button says "Got it".</li>
+      </ul>
+    </section>
+
+    <section class="chapter" aria-labelledby="cs1-flow">
+      <header><span class="key">case.content_system.workflow</span><h2 id="cs1-flow">Rethinking the publishing workflow</h2></header>
+      <div class="prose"><p>A model only helps if the way teams publish uses it. I mapped how a policy change typically moves today and redesigned it around the concept object.</p></div>
+      <div class="compare">
+        <section aria-labelledby="flow-before">
+          <h3 id="flow-before" class="label-bad">Before: search and hope</h3>
+          <ol>
+            <li>Policy changes in a doc.<span class="owner">Policy team</span></li>
+            <li>Someone posts the change in a team chat.<span class="owner">Product manager</span></li>
+            <li>Each team searches its own tool for mentions.<span class="owner">Design, help center, training, support</span></li>
+            <li>Updates ship on different dates.<span class="owner">Everyone</span></li>
+            <li>Riders and drivers see conflicting rules until someone notices.<span class="owner">Support</span></li>
+          </ol>
+        </section>
+        <section aria-labelledby="flow-after">
+          <h3 id="flow-after" class="label-good">After: change the source</h3>
+          <ol>
+            <li>Policy owner updates the fact on the concept.<span class="owner">Policy team</span></li>
+            <li>The system lists every variant that uses it.<span class="owner">Content system</span></li>
+            <li>Content designer reviews only the variants whose wording needs to change. The rest update automatically.<span class="owner">Content design</span></li>
+            <li>Localization gets one batch with full context.<span class="owner">Localization</span></li>
+            <li>All surfaces publish together, help center and training included.<span class="owner">Engineering</span></li>
+          </ol>
+        </section>
+      </div>
+      <h3>Governance that keeps it working</h3>
+      <ul class="checklist">
+        <li>A concept can't be published without an owner and a review date.</li>
+        <li>Every quarter, review the 20 concepts that drive the most support contacts.</li>
+        <li>New strings must reuse an existing concept or propose a new one. No orphans.</li>
+        <li>The model maps directly onto tools like Ditto (components and variables) and Contentful (content types and references).</li>
+      </ul>
+    </section>
+
+    <section class="chapter" aria-labelledby="cs1-measure">
+      <header><span class="key">case.content_system.metrics</span><h2 id="cs1-measure">How I'd measure success</h2></header>
+      <ul class="metrics">
+        <li><strong>Coverage</strong><span>Share of live strings linked to a concept. Target the highest-traffic flows first.</span></li>
+        <li><strong>Speed</strong><span>Time from a policy change to every surface updated.</span></li>
+        <li><strong>Consistency</strong><span>Contradictions found in a quarterly audit of the top 20 concepts.</span></li>
+        <li><strong>Clarity</strong><span>Support contacts tagged to a concept in the 4 weeks after a change.</span></li>
+      </ul>
+    </section>
+
+    <section class="chapter" aria-labelledby="cs1-learn">
+      <header><span class="key">case.content_system.reflection</span><h2 id="cs1-learn">What I learned</h2></header>
+      <div class="reflect">
+        <div><h3>Start small</h3><p>I'd pilot with the 20 concepts behind the most support contacts instead of migrating everything. Early wins make the case for the rest.</p></div>
+        <div><h3>IA is a people problem</h3><p>A naming convention only sticks if the people writing strings help shape it. Next time I'd run a card sort with designers and engineers before proposing the key structure.</p></div>
+      </div>
+    </section>
+
+    <nav class="next-case" aria-label="Next case study">
+      <a class="back" href="#work">← All work</a>
+      <div><span class="eyebrow">Next</span><br><a class="big" href="#error-states">When the ride doesn't go to plan →</a></div>
+    </nav>
+  </div>
+</article>
+
+<!-- =========================================================
+     CASE STUDY 2 — UX writing
+     ========================================================= -->
+<article data-view="error-states" id="error-states" aria-labelledby="cs2-title">
+  <div class="frame">
+    <header class="case-hero">
+      <a class="back" href="#work">← All work</a>
+      <span class="key">case.error_states.title</span>
+      <ul class="tags" aria-label="Skills"><li>UX writing</li><li>Errors</li><li>Notifications</li><li>Voice &amp; tone</li><li>Accessibility</li></ul>
+      <h1 id="cs2-title" tabindex="-1">When the ride doesn't go to plan</h1>
+      <p class="lede">Error messages and alerts in a ride app are read at the worst possible time: on a curb, in the rain, with 8% battery. I rewrote six of them so riders always know what to do next.</p>
+      <dl class="meta">
+        <div><dt>Role</dt><dd>UX writer (solo)</dd></div>
+        <div><dt>Type</dt><dd>Self-initiated concept project</dd></div>
+        <div><dt>Timeline</dt><dd><span class="ph">[2 weeks, Fall 2026]</span></dd></div>
+        <div><dt>Tools</dt><dd>Figma, Hemingway Editor, VoiceOver</dd></div>
+      </dl>
+    </header>
+
+    <div class="tldr">
+      <div><h2>Problem</h2><p>Generic errors like "Something went wrong" leave riders guessing, so they retry blindly, give up, or contact support.</p></div>
+      <div><h2>What I made</h2><p>A three-question framework for error copy, a tone scale tied to stakes, and six before-and-after rewrites with length limits and accessibility notes.</p></div>
+      <div><h2>How I'd measure it</h2><p>How many riders recover from each error on their own, and support contacts per 1,000 trips for each message.</p></div>
+    </div>
+
+    <section class="chapter" aria-labelledby="cs2-frame">
+      <header><span class="key">case.error_states.framework</span><h2 id="cs2-frame">Every message answers three questions</h2></header>
+      <ol class="framework">
+        <li><strong>What happened?</strong><span>State the outcome in plain words. Lead with it.</span></li>
+        <li><strong>What does it mean for me?</strong><span>Am I charged? Is my ride still on? Answer the worry behind the error.</span></li>
+        <li><strong>What can I do now?</strong><span>One clear action, with a button that names it.</span></li>
+      </ol>
+      <h3>Rules I wrote for myself</h3>
+      <ul class="rules prose">
+        <li><strong>No blame.</strong> "This card was declined", not "You entered an invalid card".</li>
+        <li><strong>Save "sorry" for when we caused it.</strong> An apology on every message stops meaning anything.</li>
+        <li><strong>Specific beats vague.</strong> "Try again in a few minutes" instead of "later". "Oct 31" instead of "expired".</li>
+        <li><strong>Buttons say what happens.</strong> "Change payment", never "OK".</li>
+        <li><strong>Keep error codes for support.</strong> Log them; don't show them to riders.</li>
+      </ul>
+    </section>
+
+    <section class="chapter" aria-labelledby="cs2-tone">
+      <header><span class="key">case.error_states.tone</span><h2 id="cs2-tone">One voice, tone set by the stakes</h2></header>
+      <div class="prose"><p>The voice stays the same: clear, calm, and human. The tone moves with the stakes. The more serious the moment, the less personality and the more precision.</p></div>
+      <div class="tone">
+        <div>
+          <h3>Routine</h3>
+          <div class="meter" aria-hidden="true"><i style="width:30%"></i></div>
+          <p>Light and brief. The rider just needs one fact.</p>
+          <blockquote>"Jordan is here. Look for a grey Corolla."</blockquote>
+        </div>
+        <div>
+          <h3>Friction</h3>
+          <div class="meter" aria-hidden="true"><i style="width:65%"></i></div>
+          <p>Calm and direct. Solution before explanation.</p>
+          <blockquote>"Your card was declined. Choose another card to request your ride."</blockquote>
+        </div>
+        <div>
+          <h3>Safety</h3>
+          <div class="meter" aria-hidden="true"><i style="width:100%"></i></div>
+          <p>Plain and serious. No jokes, no brand flourishes.</p>
+          <blockquote>"Your ride stopped unexpectedly. Are you OK?"</blockquote>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter" aria-labelledby="cs2-rewrites">
+      <header><span class="key">case.error_states.rewrites</span><h2 id="cs2-rewrites">Six rewrites</h2></header>
+      <p class="note">"Before" examples are typical generic patterns, written for this case study. Character counts update automatically. Push notification limits: title 40, body 90, so the key information survives a lock screen.</p>
+
+      <div class="rewrite">
+        <header><h3>Payment declined</h3><span class="where">In-app alert · friction</span></header>
+        <div class="pair">
+          <div class="msg before"><span class="tag">✕ Before</span><p class="m-title" data-text data-limit="40">Error</p><p class="m-body" data-text data-limit="120">Transaction failed (code 402). Please try again.</p><div class="m-actions"><span>OK</span></div><p class="cc" data-count></p></div>
+          <div class="msg after"><span class="tag">✓ After</span><p class="m-title" data-text data-limit="40">Your card was declined</p><p class="m-body" data-text data-limit="120">Your bank didn't approve this payment. Choose another card or add a new one to request your ride.</p><div class="m-actions"><span>Change payment</span></div><p class="cc" data-count></p></div>
+        </div>
+        <ul class="why">
+          <li>Says who declined it (the bank), so riders know where to look.</li>
+          <li>Removes the error code. It means nothing to riders and gets logged for support instead.</li>
+          <li>"Try again" would fail again. The button names the fix that works.</li>
+        </ul>
+      </div>
+
+      <div class="rewrite">
+        <header><h3>Driver cancelled</h3><span class="where">Push notification · friction</span></header>
+        <div class="pair">
+          <div class="msg before"><span class="tag">✕ Before</span><p class="m-title" data-text data-limit="40">Ride update</p><p class="m-body" data-text data-limit="90">Your driver has cancelled. We apologize for the inconvenience.</p><p class="cc" data-count></p></div>
+          <div class="msg after"><span class="tag">✓ After</span><p class="m-title" data-text data-limit="40">Finding you a new driver</p><p class="m-body" data-text data-limit="90">Your driver had to cancel. You won't be charged, and you don't need to do anything.</p><p class="cc" data-count></p></div>
+        </div>
+        <ul class="why">
+          <li>The title leads with what's happening now, not the bad news, because the ride is still on.</li>
+          <li>Answers the two real worries: Am I charged? Do I need to rebook?</li>
+          <li>"Ride update" tells you nothing on a lock screen. The new title works on its own.</li>
+        </ul>
+      </div>
+
+      <div class="rewrite">
+        <header><h3>No drivers nearby</h3><span class="where">In-app empty state · friction</span></header>
+        <div class="pair">
+          <div class="msg before"><span class="tag">✕ Before</span><p class="m-title" data-text data-limit="40">No drivers available</p><p class="m-body" data-text data-limit="120">Please try again later.</p><div class="m-actions"><span>OK</span></div><p class="cc" data-count></p></div>
+          <div class="msg after"><span class="tag">✓ After</span><p class="m-title" data-text data-limit="40">No drivers nearby right now</p><p class="m-body" data-text data-limit="120">Drivers in your area are busy. Try again in a few minutes, or schedule a ride for later.</p><div class="m-actions"><span>Try again</span><span>Schedule a ride</span></div><p class="cc" data-count></p></div>
+        </div>
+        <ul class="why">
+          <li>"Right now" makes it clear the problem is temporary.</li>
+          <li>Gives two paths instead of a dead end.</li>
+        </ul>
+      </div>
+
+      <div class="rewrite">
+        <header><h3>Pickup spot changed</h3><span class="where">Push notification · friction</span></header>
+        <div class="pair">
+          <div class="msg before"><span class="tag">✕ Before</span><p class="m-title" data-text data-limit="40">Update</p><p class="m-body" data-text data-limit="90">Your pickup location has been updated.</p><p class="cc" data-count></p></div>
+          <div class="msg after"><span class="tag">✓ After</span><p class="m-title" data-text data-limit="40">New pickup spot: Door 3</p><p class="m-body" data-text data-limit="90">Your driver can't stop at the main entrance. Door 3 is a 2 min walk from you.</p><p class="cc" data-count></p></div>
+        </div>
+        <ul class="why">
+          <li>The new place goes in the title, because titles survive truncation.</li>
+          <li>Walking time helps riders decide whether to move now. A screen reader label expands "2 min" to "2 minutes".</li>
+        </ul>
+      </div>
+
+      <div class="rewrite">
+        <header><h3>Lost connection</h3><span class="where">In-app banner · friction</span></header>
+        <div class="pair">
+          <div class="msg before"><span class="tag">✕ Before</span><p class="m-title" data-text data-limit="40">Network error</p><p class="m-body" data-text data-limit="100">Unable to connect to server.</p><p class="cc" data-count></p></div>
+          <div class="msg after"><span class="tag">✓ After</span><p class="m-title" data-text data-limit="40">You're offline</p><p class="m-body" data-text data-limit="100">Your ride is still on. We'll update your driver's location when you reconnect.</p><p class="cc" data-count></p></div>
+        </div>
+        <ul class="why">
+          <li>The real fear is "did my ride get cancelled?" The second sentence answers it first.</li>
+          <li>"Server" is how the system works. "You're offline" is how the rider experiences it.</li>
+        </ul>
+      </div>
+
+      <div class="rewrite">
+        <header><h3>Promo code didn't work</h3><span class="where">Inline form error · routine</span></header>
+        <div class="pair">
+          <div class="msg before"><span class="tag">✕ Before</span><p class="m-body" data-text data-limit="100">Invalid code.</p><p class="cc" data-count></p></div>
+          <div class="msg after"><span class="tag">✓ After</span><p class="m-body" data-text data-limit="100">This code expired on Oct 31. You can still request your ride without it.</p><p class="cc" data-count></p></div>
+        </div>
+        <ul class="why">
+          <li>When the system knows why, say why. "Invalid" makes people retype a code that will never work.</li>
+          <li>Makes it clear that the ride isn't blocked.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="chapter" aria-labelledby="cs2-a11y">
+      <header><span class="key">case.error_states.accessibility</span><h2 id="cs2-a11y">Accessible by default</h2></header>
+      <ul class="checklist">
+        <li>Errors use words and an icon, never color alone.</li>
+        <li>Status changes are announced to screen readers with live regions: polite for driver updates, assertive only for safety alerts.</li>
+        <li>Button labels make sense out of context, because screen reader users often navigate by buttons alone.</li>
+        <li>Abbreviations get full accessible labels: "2 min" is read as "2 minutes", "Dr." is never used for "Drive".</li>
+        <li>Plain language, aiming for a grade 6 to 8 reading level, checked in Hemingway Editor.</li>
+        <li>Translation-ready: no idioms like "hang tight", and room for French text to run about 30% longer, which matters for Canadian French.</li>
+      </ul>
+    </section>
+
+    <section class="chapter" aria-labelledby="cs2-measure">
+      <header><span class="key">case.error_states.metrics</span><h2 id="cs2-measure">How I'd measure success</h2></header>
+      <ul class="metrics">
+        <li><strong>Recovery rate</strong><span>Riders who fix a declined payment and request a ride within 5 minutes.</span></li>
+        <li><strong>Support contacts</strong><span>Contacts per 1,000 trips that follow each message.</span></li>
+        <li><strong>Next-step clarity</strong><span>In a 5-person comprehension test, can people say what they'd do next after reading the message once?</span></li>
+        <li><strong>Path choice</strong><span>When no drivers are nearby, how many riders schedule a ride instead of leaving?</span></li>
+      </ul>
+      <!-- TODO: If you run the 5-person comprehension test, add the results here (what people said, what you changed). -->
+    </section>
+
+    <section class="chapter" aria-labelledby="cs2-learn">
+      <header><span class="key">case.error_states.reflection</span><h2 id="cs2-learn">What I learned</h2></header>
+      <div class="reflect">
+        <div><h3>The best error is one that doesn't happen</h3><p>Two of these messages point to product fixes: warning riders about an expired card before they request, and setting pickup spots before the driver arrives. I'd bring those to design as proposals.</p></div>
+        <div><h3>Shorter isn't always clearer</h3><p>"Invalid code" is shorter than my rewrite, but it creates more work. I now count the reader's effort, not just the characters.</p></div>
+      </div>
+    </section>
+
+    <nav class="next-case" aria-label="Next case study">
+      <a class="back" href="#work">← All work</a>
+      <div><span class="eyebrow">Next</span><br><a class="big" href="#driver-learning">Ready for trip one →</a></div>
+    </nav>
+  </div>
+</article>
+
+<!-- =========================================================
+     CASE STUDY 3 — Learning experience design
+     ========================================================= -->
+<article data-view="driver-learning" id="driver-learning" aria-labelledby="cs3-title">
+  <div class="frame">
+    <header class="case-hero">
+      <a class="back" href="#work">← All work</a>
+      <span class="key">case.driver_learning.title</span>
+      <ul class="tags" aria-label="Skills"><li>Learning experience design</li><li>Onboarding</li><li>Microlearning</li><li>Assessment</li></ul>
+      <h1 id="cs3-title" tabindex="-1">Ready for trip one</h1>
+      <p class="lede">A learning path for new rideshare drivers that teaches each skill right before they need it, instead of front-loading everything before the first trip.</p>
+      <dl class="meta">
+        <div><dt>Role</dt><dd>Learning experience designer (solo)</dd></div>
+        <div><dt>Type</dt><dd>Self-initiated concept project</dd></div>
+        <div><dt>Timeline</dt><dd><span class="ph">[3 weeks, Fall 2026]</span></dd></div>
+        <div><dt>Tools</dt><dd>Figma, Google Docs, Miro</dd></div>
+      </dl>
+    </header>
+
+    <div class="tldr">
+      <div><h2>Problem</h2><p>New drivers learn most things before their first trip, when they have the least context. By their first busy pickup, last week's video is forgotten.</p></div>
+      <div><h2>What I made</h2><p>Learning objectives, a four-stage path that splits "know before you drive" from "learn when it happens", and a sample micro-lesson with a knowledge check.</p></div>
+      <div><h2>How I'd measure it</h2><p>Time from sign-up to first trip, and support contacts from drivers during their first 10 trips.</p></div>
+    </div>
+
+    <section class="chapter" aria-labelledby="cs3-learners">
+      <header><span class="key">case.driver_learning.audience</span><h2 id="cs3-learners">Who's learning, and when</h2></header>
+      <div class="prose">
+        <p>My starting assumptions, which I'd validate with interviews before building:</p>
+        <ul>
+          <li>Many new drivers drive part-time and learn on their phone, often parked between other commitments.</li>
+          <li>Many speak English as an additional language, so plain wording and visuals matter.</li>
+          <li>They are motivated by their first earnings, not by finishing a course.</li>
+          <li>They cannot read or tap anything while driving. Learning must happen when the car is stopped.</li>
+        </ul>
+      </div>
+      <h3>Learning objectives</h3>
+      <p class="note">Each objective names something a driver can do, so it can be checked.</p>
+      <div class="prose">
+        <p>After their first week, a new driver can:</p>
+        <ol>
+          <li>Confirm they have the right rider before starting a trip.</li>
+          <li>Choose a safe, legal place to stop when the pickup pin is in a busy spot.</li>
+          <li>Find their earnings for a trip and explain what each line means.</li>
+          <li>Know what to do when a rider cancels or doesn't show up.</li>
+          <li>Find and use the in-app safety tools.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="chapter" aria-labelledby="cs3-sort">
+      <header><span class="key">case.driver_learning.sorting</span><h2 id="cs3-sort">Before you drive, or when it happens?</h2></header>
+      <div class="prose"><p>I sorted every onboarding topic by one question: does a driver need this before their first trip, or can they learn it at the moment it becomes real? Only safety-critical and first-trip topics stay up front.</p></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">Topic</th><th scope="col">When it matters</th><th scope="col">Format</th></tr></thead>
+          <tbody>
+            <tr><td>Confirming the rider</td><td>Before trip 1</td><td>2-min lesson with practice</td></tr>
+            <tr><td>Safety tools</td><td>Before trip 1</td><td>2-min lesson</td></tr>
+            <tr><td>Picking up at busy spots</td><td>First pickup at a busy location</td><td>Tip when the car is stopped</td></tr>
+            <tr><td>Rider no-show</td><td>First time the wait timer runs out</td><td>In-context card</td></tr>
+            <tr><td>Airport pickups</td><td>First time entering an airport zone</td><td>Short lesson, offered while waiting in the queue</td></tr>
+            <tr><td>Reading your earnings</td><td>After trip 1</td><td>Guided walkthrough of their real receipt</td></tr>
+            <tr><td>Ratings</td><td>After trip 5</td><td>Recap card</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="chapter" aria-labelledby="cs3-path">
+      <header><span class="key">case.driver_learning.path</span><h2 id="cs3-path">The learning path</h2></header>
+      <ol class="path">
+        <li>
+          <span class="when">Before trip 1 · about 8 min</span>
+          <h3>Before you drive</h3>
+          <ul><li>Confirming your rider</li><li>Safety tools</li><li>What happens on a trip</li></ul>
+        </li>
+        <li>
+          <span class="when">Trip 1</span>
+          <h3>Your first trip</h3>
+          <ul><li>One-tap checklist before going online</li><li>Earnings walkthrough after drop-off</li></ul>
+        </li>
+        <li>
+          <span class="when">Trips 2–10</span>
+          <h3>Learn as it happens</h3>
+          <ul><li>Busy pickup tip</li><li>No-show card</li><li>Airport lesson, if relevant</li></ul>
+        </li>
+        <li>
+          <span class="when">End of week 1</span>
+          <h3>Check in</h3>
+          <ul><li>3-question recap</li><li>Links to anything skipped</li><li>Ratings explained</li></ul>
+        </li>
+      </ol>
+    </section>
+
+    <section class="chapter" aria-labelledby="cs3-lesson">
+      <header><span class="key">case.driver_learning.sample_lesson</span><h2 id="cs3-lesson">Sample micro-lesson: busy pickups</h2></header>
+      <div class="prose"><p>A two-minute lesson follows the same four beats every time, so drivers know what to expect.</p></div>
+      <ol class="storyboard">
+        <li>
+          <span class="frame-no">Frame 1 · Hook</span>
+          <h3>Start with a real moment</h3>
+          <div class="screen"><strong>The pin is on King St. There's nowhere to stop.</strong><span>What would you do?</span></div>
+          <p class="design-note">A scenario, not a rule. It makes the problem feel familiar before the lesson starts.</p>
+        </li>
+        <li>
+          <span class="frame-no">Frame 2 · Teach</span>
+          <h3>Three rules, one screen</h3>
+          <div class="screen"><span>1. Never stop in a bike lane or bus stop.</span><span>2. Find the nearest legal spot.</span><span>3. Tell your rider where you are.</span></div>
+          <p class="design-note">Short enough to remember. Illustrated so it works without reading every word.</p>
+        </li>
+        <li>
+          <span class="frame-no">Frame 3 · Practice</span>
+          <h3>Check understanding</h3>
+          <div class="screen"><span>A one-question scenario with feedback for every answer. Try it below.</span></div>
+          <p class="design-note">Every answer explains why, including the right one.</p>
+        </li>
+        <li>
+          <span class="frame-no">Frame 4 · Apply</span>
+          <h3>Show up again at the right moment</h3>
+          <div class="screen"><strong>Busy pickup ahead</strong><span>Find a legal spot nearby, then message your rider.</span></div>
+          <p class="design-note">The tip appears when the car is stopped near a busy pin. Learning connects to the real task.</p>
+        </li>
+      </ol>
+
+      <form class="quiz" id="quiz" novalidate>
+        <fieldset>
+          <legend>Your rider's pin is on a busy downtown street with no place to stop. What's the best next step?</legend>
+          <label class="option" for="q-a"><input type="radio" id="q-a" name="q" value="a"><span>Stop in the bike lane with your hazard lights on.</span></label>
+          <label class="option" for="q-b"><input type="radio" id="q-b" name="q" value="b"><span>Drive to the nearest legal spot and message your rider where you are.</span></label>
+          <label class="option" for="q-c"><input type="radio" id="q-c" name="q" value="c"><span>Cancel the trip and wait for the next request.</span></label>
+        </fieldset>
+        <div><button class="btn" type="submit" id="quiz-submit">Check answer</button></div>
+        <div id="quiz-feedback" aria-live="polite"></div>
+      </form>
+    </section>
+
+    <section class="chapter" aria-labelledby="cs3-connect">
+      <header><span class="key">case.driver_learning.connected</span><h2 id="cs3-connect">Connected to the content system</h2></header>
+      <div class="prose">
+        <p>The lesson, the in-app tip, and the help article "Where can I stop for pickups?" all reference the same concept object, <code>pickup_spot</code>, from <a href="#content-system">my content model</a>. If local rules change, the lesson, the tip, and the article update from one source.</p>
+        <p>This is where content design and learning design meet: the tip is UX writing, the lesson is education design, and the concept underneath is information architecture.</p>
+      </div>
+    </section>
+
+    <section class="chapter" aria-labelledby="cs3-a11y">
+      <header><span class="key">case.driver_learning.inclusion</span><h2 id="cs3-a11y">Safe and inclusive by design</h2></header>
+      <ul class="checklist">
+        <li>In-context tips appear only when the car is stopped. Nothing asks for attention while driving.</li>
+        <li>Every video has captions and a transcript. Every lesson works with the sound off.</li>
+        <li>Plain language and illustrations support drivers reading in a second language.</li>
+        <li>Available in English and French at launch.</li>
+        <li>Lessons can be skipped and found later in the learning center, so experienced drivers aren't held back.</li>
+      </ul>
+    </section>
+
+    <section class="chapter" aria-labelledby="cs3-measure">
+      <header><span class="key">case.driver_learning.metrics</span><h2 id="cs3-measure">How I'd measure success</h2></header>
+      <ul class="metrics">
+        <li><strong>Time to first trip</strong><span>Days from sign-up to first completed trip. Less up-front training should make this shorter.</span></li>
+        <li><strong>Early support contacts</strong><span>Contacts from drivers in their first 10 trips, by topic.</span></li>
+        <li><strong>First-try pass rate</strong><span>Per question, to find content that confuses people, not just who passed.</span></li>
+        <li><strong>30-day retention</strong><span>New drivers still driving after a month.</span></li>
+      </ul>
+    </section>
+
+    <section class="chapter" aria-labelledby="cs3-learn">
+      <header><span class="key">case.driver_learning.reflection</span><h2 id="cs3-learn">What I learned</h2></header>
+      <div class="reflect">
+        <div><h3>Less up front is a design decision</h3><p>Removing content felt risky. Sorting by "when does this matter?" gave me a clear reason for every cut, which is what I'd need to convince stakeholders.</p></div>
+        <div><h3>Next: talk to drivers</h3><p>My audience profile is built on assumptions. Before building, I'd interview 5 to 8 newer drivers about their first week and what surprised them.</p></div>
+      </div>
+    </section>
+
+    <nav class="next-case" aria-label="Next case study">
+      <a class="back" href="#work">← All work</a>
+      <div><span class="eyebrow">Next</span><br><a class="big" href="#content-system">One concept, every surface →</a></div>
+    </nav>
+  </div>
+</article>
+
+</main>
+
+<footer class="site-footer">
+  <div class="frame">
+    <p>All case studies are self-initiated concept projects and are not affiliated with any company. Interface copy is illustrative.</p>
+    <p>Designed and written by <span class="ph">[Your Name]</span>, 2026.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  /* ---------- Routing: one page, four views, plain #hash links ---------- */
+  var views = Array.prototype.slice.call(document.querySelectorAll('[data-view]'));
+  var names = views.map(function (v) { return v.getAttribute('data-view'); });
+  var baseTitle = document.title;
+
+  function route(initial) {
+    var hash = decodeURIComponent(location.hash.replace('#', ''));
+    var target = names.indexOf(hash) !== -1 ? hash : 'home';
+    var anchor = null;
+    if (target === 'home' && hash && hash !== 'home') {
+      anchor = document.getElementById(hash);
+    }
+    views.forEach(function (v) { v.hidden = v.getAttribute('data-view') !== target; });
+
+    if (target === 'home') {
+      document.title = baseTitle;
+      if (anchor) { anchor.scrollIntoView(); }
+      else if (!initial) { window.scrollTo(0, 0); }
+    } else {
+      var view = document.querySelector('[data-view="' + target + '"]');
+      var h1 = view.querySelector('h1');
+      document.title = h1.textContent + ' · ' + baseTitle;
+      window.scrollTo(0, 0);
+      if (!initial && h1) { h1.focus({ preventScroll: true }); }
+    }
+  }
+  window.addEventListener('hashchange', function () { route(false); });
+  route(true);
+
+  /* ---------- Character counts on rewrites ---------- */
+  document.querySelectorAll('[data-count]').forEach(function (out) {
+    var msg = out.closest('.msg');
+    var parts = [];
+    msg.querySelectorAll('[data-text]').forEach(function (el) {
+      var n = el.textContent.trim().length;
+      var limit = parseInt(el.getAttribute('data-limit'), 10);
+      var label = el.classList.contains('m-title') ? 'Title' : 'Body';
+      var cls = n > limit ? ' class="over"' : '';
+      parts.push(label + ' <span' + cls + '>' + n + '/' + limit + '</span>');
+    });
+    out.innerHTML = parts.join(' · ');
+  });
+
+  /* ---------- Content model explorer ---------- */
+  var variants = [
+    { surface: 'In-app sheet · rider', key: 'rider.pickup.cancel_fee.confirm_sheet',
+      title: 'Cancel this ride?',
+      body: 'Your driver has been on the way for more than {grace} minutes. If you cancel now, you’ll be charged a {fee} cancellation fee.' },
+    { surface: 'Push notification · rider', key: 'rider.after_trip.cancel_fee.push',
+      title: 'Cancellation fee: {fee}',
+      body: 'You cancelled more than {grace} min after your driver accepted. Tap to see your receipt.' },
+    { surface: 'Receipt · rider', key: 'rider.after_trip.cancel_fee.receipt',
+      title: 'Cancellation fee · {fee}',
+      body: 'Ride cancelled more than {grace} minutes after your driver accepted.' },
+    { surface: 'Help center', key: 'help.payments.cancel_fee.article',
+      title: 'When is there a cancellation fee?',
+      body: 'Cancelling is free for the first {grace} minutes after a driver accepts your ride. After that, you’ll be charged a {fee} cancellation fee to pay your driver for their time.' },
+    { surface: 'Learning module · driver', key: 'driver.pickup.cancel_fee.lesson',
+      title: 'When a rider cancels',
+      body: 'If a rider cancels more than {grace} minutes after you accept, you’re paid for your time. Look for “Cancellation fee” in your earnings.' },
+    { surface: 'Support macro · agent', key: 'support.payments.cancel_fee.macro',
+      title: 'Explaining the fee',
+      body: 'Riders are charged {fee} if they cancel more than {grace} minutes after a driver accepts. If the driver was late or went the wrong way, refund the fee.' }
+  ];
+  var feeEl = document.getElementById('fact-fee');
+  var graceEl = document.getElementById('fact-grace');
+  var wrap = document.getElementById('variants');
+  var last = { fee: feeEl.value, grace: graceEl.value };
+
+  function esc(s) { return s.replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function fill(tpl, facts, changed) {
+    return esc(tpl).replace(/\{(fee|grace)\}/g, function (_, k) {
+      return '<mark' + (changed[k] ? ' class="changed"' : '') + '>' + esc(facts[k]) + '</mark>';
+    });
+  }
+  function render(changed) {
+    var facts = { fee: feeEl.value, grace: graceEl.value };
+    wrap.innerHTML = variants.map(function (v) {
+      return '<div class="variant"><span class="surface">' + esc(v.surface) + '</span>' +
+        '<span class="key">' + esc(v.key) + '</span>' +
+        '<p class="v-title">' + fill(v.title, facts, changed) + '</p>' +
+        '<p class="v-body">' + fill(v.body, facts, changed) + '</p></div>';
+    }).join('');
+    if (changed.fee || changed.grace) {
+      setTimeout(function () {
+        wrap.querySelectorAll('mark.changed').forEach(function (m) { m.classList.remove('changed'); });
+      }, 1200);
+    }
+  }
+  function onChange() {
+    var changed = { fee: feeEl.value !== last.fee, grace: graceEl.value !== last.grace };
+    last = { fee: feeEl.value, grace: graceEl.value };
+    render(changed);
+  }
+  feeEl.addEventListener('change', onChange);
+  graceEl.addEventListener('change', onChange);
+  render({});
+
+  /* ---------- Knowledge check ---------- */
+  var feedback = {
+    a: { ok: false, head: 'Not quite.', text: 'Stopping in a bike lane puts cyclists at risk and can get you a ticket. Find a legal spot nearby and message your rider where you are.' },
+    b: { ok: true, head: 'That’s right.', text: 'A short walk for your rider is better than an unsafe stop. A quick message like “I’m at the corner of King and John” helps them find you.' },
+    c: { ok: false, head: 'Not the best option.', text: 'Cancelling should be a last resort. There’s usually a legal spot nearby, and your rider is happy to walk a little.' }
+  };
+  var quiz = document.getElementById('quiz');
+  var fb = document.getElementById('quiz-feedback');
+  quiz.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var picked = quiz.querySelector('input[name="q"]:checked');
+    if (!picked) {
+      fb.innerHTML = '<div class="feedback"><strong>Choose an answer first.</strong><span>Pick the option you think is best, then select Check answer.</span></div>';
+      return;
+    }
+    var f = feedback[picked.value];
+    fb.innerHTML = '<div class="feedback ' + (f.ok ? 'right' : 'wrong') + '"><strong>' + f.head + '</strong><span>' + f.text + '</span></div>';
+  });
+
+  /* ---------- Copy email ---------- */
+  var copyBtn = document.getElementById('copy-email');
+  var status = document.getElementById('copy-status');
+  copyBtn.addEventListener('click', function () {
+    var text = document.getElementById('email-text').textContent.trim();
+    function selectFallback() {
+      var r = document.createRange();
+      r.selectNodeContents(document.getElementById('email-text'));
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      status.textContent = 'Email selected. Press Ctrl+C or Cmd+C to copy it.';
+    }
+    try {
+      navigator.clipboard.writeText(text).then(function () {
+        status.textContent = 'Email copied.';
+      }, selectFallback);
+    } catch (err) { selectFallback(); }
+  });
+})();
+</script>
+</body>
+</html>
