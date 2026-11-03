@@ -1,4 +1,4 @@
-# Content Systems Portfolio
+# Xuxu Zhou Portfolio
 
 A portfolio site for the **Lyft · UX Content Design Intern (Summer 2027, Toronto)** application.
 It's a single static file (`index.html`) that can be published with GitHub Pages.
