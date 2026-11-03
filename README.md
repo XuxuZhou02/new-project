@@ -19,7 +19,7 @@ All three case studies use the same rideshare scenario, which shows the "systems
 
 Search `index.html` for `[` and `TODO`:
 
-- `[Your Name]`, `[program]`, `[university]`, `[Month 2028]`, `[Degree, program]`, and languages
+- `[Month 2028]` (graduation date) and languages
 - `[your.email@example.com]` and the LinkedIn link (search for `linkedin.com`)
 - The timeline on each case study (`[3 weeks, Fall 2026]` and so on)
 - Rewrite the About section with your own background
